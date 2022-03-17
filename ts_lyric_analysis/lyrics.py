@@ -1,3 +1,4 @@
+from word import Word
 from util import remove_punctuation
 
 class Lyrics:
@@ -13,14 +14,12 @@ class Lyrics:
           the row. 
 
         Parameters:
-            length (int): the number of words (including line breaks as a special
-                word) in the song
-            original_lyrics (list<Word>): the special word that starts the 
-                lyrics in their original order.
-            sorted_lyrics (list<Word>): the special word that starts the chain in 
-                sorted order.
+            original_lyrics (list<Word>): all the lyrics in their original
+                order, including line breaks
+            sorted_lyrics (list<Word>): the lyrics in their sorted order for
+                faster matching, all line breaks removed.
             matches (list): a list of all words from this song that match a
-                different song.
+                different song. (?)
 
         Methods:
             __init__(str): creates a new lyric from the given songname
@@ -35,12 +34,10 @@ class Lyrics:
                 songname (str): the name of the song these lyrics will belong
                 to.
         """
-        self.length = 0
-
         # Set the default values of everything I need
         self.original_lyrics = []
         self.sorted_lyrics = []
-        self.matches = [] 
+        self.matches = []
 
         # Open the lyrics file and set the starting lyric
         self._open_lyrics_file(songname)
@@ -68,4 +65,29 @@ class Lyrics:
             Parameters:
                 lyrics (list<str>): the list of lines that make up the lyrics.
         """
-        pass
+        for lyric in lyrics:
+            for word in lyric.split(" "):
+                self.original_lyrics.append(Word(word))
+            self.original_lyrics.append(Word("", is_line_break=True))
+        self._sort_lyrics()
+
+    def _sort_lyrics(self):
+        """ Once the original lyrics are created sorts them into order. This
+        also involves squishing duplicates into one item and removing line
+        breaks. 
+        """
+        sorted_list = sorted(self.original_lyrics)
+
+        # self.sorted_lyrics
+        current_word = Word("")  # Making this a 'Word' obj for easy comparison
+        i = 0
+        for word in sorted_list:
+            if word.is_line_break:
+                continue
+            # Check if a duplicate
+            if word == current_word:
+                # Uh Oh duplicate
+                current_word.add_duplicate(word)
+                continue
+            self.sorted_lyrics.append(word)
+            current_word = word
