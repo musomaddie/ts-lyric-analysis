@@ -67,6 +67,10 @@ class Lyrics:
         """
         for lyric in lyrics:
             for word in lyric.split(" "):
+                if word == "<PARAGRAPH>":
+                    self.original_lyrics.append(
+                            Word("", is_paragraph_break=True))
+                    continue
                 self.original_lyrics.append(Word(word))
             self.original_lyrics.append(Word("", is_line_break=True))
         self._sort_lyrics()
@@ -82,7 +86,7 @@ class Lyrics:
         current_word = Word("")  # Making this a 'Word' obj for easy comparison
         i = 0
         for word in sorted_list:
-            if word.is_line_break:
+            if word.is_line_break or word.is_paragraph_break:
                 continue
             # Check if a duplicate
             if word == current_word:

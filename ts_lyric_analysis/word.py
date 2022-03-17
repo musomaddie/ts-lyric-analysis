@@ -30,19 +30,21 @@ class Word:
             add_duplicate(Word): marks the word as a duplicate of this one.
     """
 
-    def __init__(self, word, is_line_break=False):
+    def __init__(self, word, is_line_break=False, is_paragraph_break=False):
         """ Creates a new Word object using the provided word. If is_line_break
         is true, then the word is set to an empty string. 
 
             Parameters:
                 word (str): the word of this word object.
                 (optional) is_line_break (bool): if this 'word' is a line break
-        self.
+                (optional) is_paragraph_break (bool): is this 'word' a paragraph
+                break.
         """
 
         self.is_line_break = is_line_break
+        self.is_paragraph_break = is_paragraph_break
         # TODO: I lowkey kinda hate this class layout but that's ok.
-        if is_line_break:
+        if is_line_break or is_paragraph_break:
             self.original_word = ""
             self.formatted_word = ""
         else:
@@ -54,6 +56,8 @@ class Word:
     def __repr__(self):
         if self.is_line_break:
             return "<BREAK>"
+        if self.is_paragraph_break:
+            return "<PARAGRAPH>"
         return (f"{self.original_word} ({self.formatted_word})" \
                 f" [{len(self.duplicates)}]")
 
