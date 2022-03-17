@@ -88,10 +88,9 @@ class Lyrics:
         for word in sorted_list:
             if word.is_line_break or word.is_paragraph_break:
                 continue
-            # Check if a duplicate
             if word == current_word:
-                # Uh Oh duplicate
                 current_word.add_duplicate(word)
                 continue
+
             self.sorted_lyrics.append(word)
             current_word = word
