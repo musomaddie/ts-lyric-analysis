@@ -16,4 +16,5 @@ class Song:
 
 
 if __name__ == "__main__":
-    Song("Cardigan", "Folklore", "Musixmatch")
+    card = Song("cardigan", "Folklore", "Musixmatch")
+    bett = Song("betty", "Folklore", "Musixmatch")
