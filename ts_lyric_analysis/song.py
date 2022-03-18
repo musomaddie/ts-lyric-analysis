@@ -18,3 +18,12 @@ class Song:
 if __name__ == "__main__":
     card = Song("cardigan", "Folklore", "Musixmatch")
     bett = Song("betty", "Folklore", "Musixmatch")
+
+    # Next step is to compare both of these and find all the matches. 
+    # Once I have all the matches I can work on formatting the webpage for the
+    # lyrics. 
+
+    # After that I can work on uploading all the songs and finding the most
+    # commonly used words
+    # After that I can generalise the site to allow comparisons of multiple
+    # songs, different ways of viewing matches and modifying searches etc.
