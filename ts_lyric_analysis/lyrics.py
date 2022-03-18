@@ -18,8 +18,6 @@ class Lyrics:
                 order, including line breaks
             sorted_lyrics (list<Word>): the lyrics in their sorted order for
                 faster matching, all line breaks removed.
-            matches (list): a list of all words from this song that match a
-                different song. (?)
 
         Methods:
             __init__(str): creates a new lyric from the given songname
@@ -37,7 +35,6 @@ class Lyrics:
         # Set the default values of everything I need
         self.original_lyrics = []
         self.sorted_lyrics = []
-        self.matches = []
 
         # Open the lyrics file and set the starting lyric
         self._open_lyrics_file(songname)
@@ -94,3 +91,14 @@ class Lyrics:
 
             self.sorted_lyrics.append(word)
             current_word = word
+
+    def mark_match(word1, word2):
+        """ Marks the two given words as a match for each other.
+
+            Parameters:
+                word1: the word from first lyrics to mark as a match
+                word2: the word from the second lyrics to mark as a match
+        """
+        print(f"Match between {word1} and {word2}")
+        word1.mark_match(word2)
+        word2.mark_match(word1)

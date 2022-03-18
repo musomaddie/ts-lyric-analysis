@@ -51,6 +51,7 @@ class Word:
             self.original_word = word
             self.formatted_word = remove_punctuation(word.lower())
         self.duplicates = []
+        self.matched_word = None  # TODO: change to compare multiple songs.
         self.parent = None
 
     def __repr__(self):
@@ -75,3 +76,13 @@ class Word:
         """
         self.duplicates.append(other_word)
         other_word.parent = self
+
+    def mark_match(self, matched_word):
+        """ Marks that this word has a match! 
+        
+            Parameters:
+                matched_word (Word): the word that matches this one.
+        """
+        self.matched = matched_word
+        for dup in self.duplicates:
+            dup.matched = matched_word
