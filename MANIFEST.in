@@ -1,0 +1,2 @@
+graft ts_lyric_analysis/static
+global-exclude *.pyc
