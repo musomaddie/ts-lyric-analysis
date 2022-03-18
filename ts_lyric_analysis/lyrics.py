@@ -1,5 +1,5 @@
-from word import Word
-from util import remove_punctuation
+from ts_lyric_analysis.word import Word
+from ts_lyric_analysis.util import remove_punctuation
 
 class Lyrics:
 

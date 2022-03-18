@@ -1,7 +1,20 @@
-from lyrics import Lyrics
+import functools
+
+from flask import Blueprint
+# from flask import flash
+# from flask import g
+# from flask import redirect
+# from flask import render_templates
+# from flask import request
+# from flask import session
+# from flask import url
+from ts_lyric_analysis.lyrics import Lyrics
+
+bp = Blueprint("song", __name__, url_prefix="/song")
 
 class Song:
-    """ Contains all the information needed for the current song.
+    """ Contains all the information needed for the current song. Is also a
+    blueprint for the flask application to view details about this song.
 
         Parameters:
             name (string): the name of the song
@@ -88,6 +101,10 @@ class Song:
             this_current_word_index, other_current_word_index = Song._move_indices(
                     this_lyrics, other_lyrics,
                     this_current_word_index, other_current_word_index)
+
+@bp.route("/<song_name>", methods=["GET"])
+def show_lyrics(song_name):
+    return f"Showing the lyrics {song_name}"
 
 if __name__ == "__main__":
     card = Song("cardigan", "Folklore", "Musixmatch")

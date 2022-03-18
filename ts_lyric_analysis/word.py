@@ -1,5 +1,5 @@
 from functools import total_ordering
-from util import remove_punctuation
+from ts_lyric_analysis.util import remove_punctuation
 
 # The docs mention that using total_ordering may take significantly more time. 
 # If this becomes an issue replace with the implementation of the rich
