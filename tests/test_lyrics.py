@@ -49,5 +49,5 @@ def test_match():
     word_1 = Word("This")
     word_2 = Word("this")
     Lyrics.mark_match(word_1, word_2)
-    assert word_1.matched == word_2
-    assert word_2.matched == word_1
+    assert word_1.matched_word == word_2
+    assert word_2.matched_word == word_1
