@@ -51,7 +51,7 @@ class Lyrics:
         songname_formatted = remove_punctuation(songname.lower())
 
         lines = []
-        with open(f"static/lyrics/{songname_formatted}.txt", "r") as f:
+        with open(f"ts_lyric_analysis/static/lyrics/{songname_formatted}.txt", "r") as f:
             lines = [line.rstrip() for line in f]
         self._save_lyrics(lines)
 
@@ -79,7 +79,6 @@ class Lyrics:
         """
         sorted_list = sorted(self.original_lyrics)
 
-        # self.sorted_lyrics
         current_word = Word("")  # Making this a 'Word' obj for easy comparison
         i = 0
         for word in sorted_list:
@@ -88,7 +87,6 @@ class Lyrics:
             if word == current_word:
                 current_word.add_duplicate(word)
                 continue
-
             self.sorted_lyrics.append(word)
             current_word = word
 
