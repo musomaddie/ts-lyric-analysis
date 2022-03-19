@@ -25,6 +25,8 @@ class Word:
                 strictly sure if this is actually necessary - if I just updates
                 duplicates when I find a match I shouldn't need to refer back to
                 parent at any point.
+            matched_word (Word): the word from another song that matches to this
+                one. Initially None and remains so unless a match is found.
 
         Methods:
             add_duplicate(Word): marks the word as a duplicate of this one.
