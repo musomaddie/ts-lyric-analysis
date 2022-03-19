@@ -60,7 +60,7 @@ class Word:
         if self.is_paragraph_break:
             return "<PARAGRAPH>"
         return (f"{self.original_word} ({self.formatted_word})" \
-                f" [{len(self.duplicates)}]")
+                f" [{self.count_duplicates()}]")
 
     def __eq__(self, other):
         return self.formatted_word == other.formatted_word
@@ -76,6 +76,11 @@ class Word:
         """
         self.duplicates.append(other_word)
         other_word.parent = self
+
+    def count_duplicates(self):
+        if self.parent is None:
+            return len(self.duplicates)
+        return len(self.parent.duplicates)
 
     def mark_match(self, matched_word):
         """ Marks that this word has a match! 

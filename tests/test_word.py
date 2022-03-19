@@ -83,6 +83,11 @@ def test_add_duplicate(word, different_formatting):
     assert len(different_formatting.duplicates) == 0
     assert different_formatting.parent == word
 
+def test_count_duplicates(word, different_formatting):
+    word.add_duplicate(different_formatting)
+    assert word.count_duplicates() == 1
+    assert different_formatting.count_duplicates() == 1
+
 def test_mark_match(word, different_formatting):
     word.mark_match(different_formatting)
     assert word.matched == different_formatting
