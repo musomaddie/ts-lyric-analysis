@@ -90,10 +90,10 @@ def test_count_duplicates(word, different_formatting):
 
 def test_mark_match(word, different_formatting):
     word.mark_match(different_formatting)
-    assert word.matched == different_formatting
+    assert word.matched_word == different_formatting
 
 def test_mark_match_with_dup(word, different_word, different_formatting):
     word.add_duplicate(different_formatting)
     word.mark_match(different_word)
-    assert word.matched == different_word
-    assert different_formatting.matched == different_word
+    assert word.matched_word == different_word
+    assert different_formatting.matched_word == different_word

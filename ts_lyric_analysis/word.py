@@ -65,6 +65,8 @@ class Word:
                 f" [{self.count_duplicates()}]")
 
     def __eq__(self, other):
+        if not isinstance(other, Word):
+            return False
         return self.formatted_word == other.formatted_word
 
     def __lt__(self, other):
@@ -90,6 +92,6 @@ class Word:
             Parameters:
                 matched_word (Word): the word that matches this one.
         """
-        self.matched = matched_word
+        self.matched_word = matched_word
         for dup in self.duplicates:
-            dup.matched = matched_word
+            dup.matched_word = matched_word
