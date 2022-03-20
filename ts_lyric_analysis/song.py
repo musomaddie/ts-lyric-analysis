@@ -106,10 +106,10 @@ def show_lyrics(song_name):
     return f"Showing the lyrics {song_name}"
 
 if __name__ == "__main__":
-    Song("testing short", "testing", "testing")
-    # card = Song("cardigan", "Folklore", "Musixmatch")
-    # bett = Song("betty", "Folklore", "Musixmatch")
-    # card.compare_to_song(bett)
+    # Song("testing short", "testing", "testing")
+    card = Song("cardigan", "Folklore", "Musixmatch")
+    bett = Song("betty", "Folklore", "Musixmatch")
+    card.compare_to_song(bett)
 
     # Next step is to compare both of these and find all the matches. 
     # Once I have all the matches I can work on formatting the webpage for the

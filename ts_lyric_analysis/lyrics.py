@@ -132,7 +132,7 @@ class Lyrics:
         """
         # Using sorted(list) hasn't worked because it copies to make the new
         # list therefore changes to the lyrics in sorted_list won't change
-        # original. I can't use  sort in the original list as I need to
+        # original. I can't use sort in the original list as I need to
         # maintain it.
         self.sorted_lyrics =  Word.remove_duplicates(
                 Lyrics._recursive_custom_sort(
