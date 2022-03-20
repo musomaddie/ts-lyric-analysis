@@ -39,6 +39,59 @@ class Lyrics:
         # Open the lyrics file and set the starting lyric
         self._open_lyrics_file(songname)
 
+    def _find_middle(starting_index, ending_index):
+        """ Returns the middle value of these two (i.e. the average) """
+        return (starting_index + ending_index) // 2
+
+    def _merge_both_lists(left_list, right_list):
+        combined_list = []
+        index_left, index_right = 0, 0
+        while True:
+
+            # Special case for empty lists due to not counting the breaks
+            if len(left_list) == 0 and len(right_list) == 0:
+                return []
+            elif len(left_list) == 0:
+                return right_list
+            elif len(right_list) == 0:
+                return left_list
+
+            if (index_left == len(left_list) and index_right == len(right_list)):
+                return combined_list
+
+            elif index_left == len(left_list):
+                combined_list.append(right_list[index_right])
+                index_right += 1
+            elif index_right == len(right_list):
+                combined_list.append(left_list[index_left])
+                index_left += 1
+
+            elif left_list[index_left] < right_list[index_right]:
+                combined_list.append(left_list[index_left])
+                index_left += 1
+            else:
+                combined_list.append(right_list[index_right])
+                index_right += 1
+
+    def _recursive_custom_sort(original_array, starting_index, ending_index):
+        """ Recursive helper for the above. """
+        if starting_index == ending_index - 1:
+            # Only add to list if this is a word.
+            if (original_array[starting_index].is_line_break 
+                    or original_array[starting_index].is_paragraph_break):
+                return []
+            return [original_array[starting_index]]
+        splitting_index = Lyrics._find_middle(starting_index, ending_index)
+        left = Lyrics._recursive_custom_sort(original_array, starting_index, splitting_index)
+        right = Lyrics._recursive_custom_sort(original_array, splitting_index, ending_index)
+
+        # Now I actually have to do the sort part
+        return Lyrics._merge_both_lists(
+                Lyrics._recursive_custom_sort(original_array, starting_index,
+                    splitting_index),
+                Lyrics._recursive_custom_sort(original_array, splitting_index,
+                    ending_index))
+
     def _open_lyrics_file(self, songname):
         """ Opens the lyric file associated with the song and saves the lyrics
         as a list of lines. All lyric files are saved in the same place with the
@@ -77,18 +130,13 @@ class Lyrics:
         also involves squishing duplicates into one item and removing line
         breaks. 
         """
-        sorted_list = sorted(self.original_lyrics)
-
-        current_word = Word("")  # Making this a 'Word' obj for easy comparison
-        i = 0
-        for word in sorted_list:
-            if word.is_line_break or word.is_paragraph_break:
-                continue
-            if word == current_word:
-                current_word.add_duplicate(word)
-                continue
-            self.sorted_lyrics.append(word)
-            current_word = word
+        # Using sorted(list) hasn't worked because it copies to make the new
+        # list therefore changes to the lyrics in sorted_list won't change
+        # original. I can't use  sort in the original list as I need to
+        # maintain it.
+        self.sorted_lyrics =  Word.remove_duplicates(
+                Lyrics._recursive_custom_sort(
+                    self.original_lyrics, 0, len(self.original_lyrics)))
 
     def mark_match(word1, word2):
         """ Marks the two given words as a match for each other.

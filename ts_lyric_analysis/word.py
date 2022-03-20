@@ -18,6 +18,8 @@ class Word:
             formatted_word (string): the word formatted to assist with matching.
                 i.e. in lower case with punctuation removed
             is_line_break (bool): is this word a special line break character
+            is_paragraph_break (bool): is this word a special paragraph break
+                character
             duplicates (list<Word): a list containing all the Word objects that
                 are the same as this one within the same song.
             parent (Word): initially None, only used if this word is a duplicate
@@ -95,3 +97,18 @@ class Word:
         self.matched_word = matched_word
         for dup in self.duplicates:
             dup.matched_word = matched_word
+
+
+    def remove_duplicates(array):
+        """ Marks any words as duplicates from the given array. Assumed it has
+        been both sorted and the breaks removed.
+        """
+        array_no_dups = []
+        current_word = Word("")  # Making this a word 'obj' for easy comparison.
+        for word in array:
+            if word == current_word:
+                current_word.add_duplicate(word)
+                continue
+            array_no_dups.append(word)
+            current_word = word
+        return array_no_dups

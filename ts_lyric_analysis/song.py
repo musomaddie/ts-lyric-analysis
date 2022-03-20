@@ -64,9 +64,8 @@ class Song:
     def _move_indices(lyrics1, lyrics2, cw_index1, cw_index2):
         """ A helper that moves the current index counters for the two songs.
         """
-        # TODO: make sure not to run out the end of either song
         if len(lyrics1) - 1 == cw_index1:
-            return cw_index1, cw_index2
+            return cw_index1, cw_index2 + 1
         elif len(lyrics2) - 1 == cw_index2:
             return cw_index1 + 1, cw_index2
         elif lyrics1[cw_index1] < lyrics2[cw_index2]:
@@ -89,15 +88,15 @@ class Song:
         other_lyrics = other_song.lyrics.sorted_lyrics
 
         while True:
-            # If both songs are finished we can exit
-            if ((len(this_lyrics) - 1 == this_current_word_index) and
-                    (len(other_lyrics) - 1 and other_current_word_index)):
-                print("Finishing the loop")
-                break
-            # Check the match
             Song._check_current_word_match(this_lyrics, other_lyrics,
                     this_current_word_index, other_current_word_index)
-            # Move to the next index with the 'smaller' one
+            # If we do not check the match before this exit condition the last
+            # word is never checked
+
+            if ((len(this_lyrics) - 1 == this_current_word_index) and
+                    (len(other_lyrics) - 1 == other_current_word_index)):
+                break
+
             this_current_word_index, other_current_word_index = Song._move_indices(
                     this_lyrics, other_lyrics,
                     this_current_word_index, other_current_word_index)
@@ -107,9 +106,10 @@ def show_lyrics(song_name):
     return f"Showing the lyrics {song_name}"
 
 if __name__ == "__main__":
-    card = Song("cardigan", "Folklore", "Musixmatch")
-    bett = Song("betty", "Folklore", "Musixmatch")
-    card.compare_to_song(bett)
+    Song("testing short", "testing", "testing")
+    # card = Song("cardigan", "Folklore", "Musixmatch")
+    # bett = Song("betty", "Folklore", "Musixmatch")
+    # card.compare_to_song(bett)
 
     # Next step is to compare both of these and find all the matches. 
     # Once I have all the matches I can work on formatting the webpage for the
