@@ -19,6 +19,7 @@ class Song:
         Parameters:
             name (string): the name of the song
             album (string): the name of the album the song is on.
+            track_number (int): the track number of the song on the album.
             lyrics (Lyrics): the lyrics of the song
             lyric_source (string): the source where there lyrics is from.
     
@@ -36,7 +37,7 @@ class Song:
 
     # I will leave the lyrics inside a folder to cut down file size.
 
-    def __init__(self, name, album, lyric_source):
+    def __init__(self, name, album, track_number, lyric_source):
         """ Creates an new song object with the given name album and lyric
         source.
         Also populates the lyric data from the file located at:
@@ -51,6 +52,7 @@ class Song:
         self.name = name
         self.album = album
         self.lyrics = Lyrics(name)
+        self.track_number = track_number
         self.lyric_source = lyric_source
 
     def __repr__(self):
@@ -107,8 +109,8 @@ def show_lyrics(song_name):
 
 if __name__ == "__main__":
     # Song("testing short", "testing", "testing")
-    card = Song("cardigan", "Folklore", "Musixmatch")
-    bett = Song("betty", "Folklore", "Musixmatch")
+    card = Song("cardigan", "Folklore", 2, "Musixmatch")
+    bett = Song("betty", "Folklore", 14, "Musixmatch")
     card.compare_to_song(bett)
 
     # Next step is to compare both of these and find all the matches. 

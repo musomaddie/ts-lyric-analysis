@@ -13,7 +13,7 @@ def testing_song():
             This is a new paragraph
             ```
     """
-    return Song("Testing", "Test", "Example")
+    return Song("Testing", "Test", 0, "Example")
 
 @pytest.fixture
 def testing_short_song():
@@ -22,11 +22,12 @@ def testing_short_song():
 
         From this song (this, is, a) all match original testing song
     """
-    return Song("Testing Short", "Test", "Example")
+    return Song("Testing Short", "Test", 0, "Example")
 
 def test_setup(testing_song):
     assert testing_song.name == "Testing"
     assert testing_song.album == "Test"
+    assert testing_song.track_number == 0
     assert testing_song.lyric_source == "Example"
 
 
