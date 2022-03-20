@@ -61,6 +61,9 @@ def test_eq_diff_format(word):
 def test_eq_different(word, different_word):
     assert word != different_word
 
+def test_eq_different_types(word):
+    assert word != "This is not a word"
+
 def test_comparisons_simple(word, different_word):
     assert word < different_word
     assert different_word > word
