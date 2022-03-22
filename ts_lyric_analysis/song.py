@@ -22,6 +22,8 @@ class Song:
             track_number (int): the track number of the song on the album.
             lyrics (Lyrics): the lyrics of the song
             lyric_source (string): the source where there lyrics is from.
+            is_from_the_vault (bool): whether or not the song is from the vault
+                so that adjustments can be made to the title if required.
     
         Methods:
             __init__(name, album, lyric_source): creates a new Song object using
@@ -37,7 +39,8 @@ class Song:
 
     # I will leave the lyrics inside a folder to cut down file size.
 
-    def __init__(self, name, album, track_number, lyric_source):
+    def __init__(self, name, album, track_number, lyric_source,
+            is_from_the_vault=False):
         """ Creates an new song object with the given name album and lyric
         source.
         Also populates the lyric data from the file located at:
@@ -48,12 +51,15 @@ class Song:
             name (string): the name of the song
             album (string): the name of the album that contains the song.
             lyric_source (string): the source where these lyrics were found.
+            is_from_the_vault (bool): whether the song is from the vault.
+                False unless specified otherwise.
         """
         self.name = name
         self.album = album
         self.lyrics = Lyrics(name)
         self.track_number = track_number
         self.lyric_source = lyric_source
+        self.is_from_the_vault = is_from_the_vault
 
     def __repr__(self):
         return self.name
