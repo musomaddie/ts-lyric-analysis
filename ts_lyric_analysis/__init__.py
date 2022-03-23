@@ -1,7 +1,8 @@
 import os
 
+from . import db
+from . import song
 from flask import Flask
-from ts_lyric_analysis import song
 
 def create_app(test_config=None):
     # Create and config the app
@@ -24,5 +25,6 @@ def create_app(test_config=None):
         pass
 
     app.register_blueprint(song.bp)
+    db.init_app(app)
 
     return app
