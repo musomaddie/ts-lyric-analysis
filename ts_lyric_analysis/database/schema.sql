@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS album_info;
 CREATE TABLE album_info(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	album_name TEXT NOT NULL,
-	position INTEGER
+	order_of_release INTEGER
 );
 
 CREATE TABLE song_info(

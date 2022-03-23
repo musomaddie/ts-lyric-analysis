@@ -1,6 +1,6 @@
 from ts_lyric_analysis.song import Song
 
-def debut_album():
+def list_debut_album_songs():
     # I don't have to return the song object here as this is for db storage. I
     # just need the song title, album, track number and lyric source but I must
     # ensure the lyric file is created to avoid later issues.
@@ -53,7 +53,7 @@ def populate_db():
     # Making all the songs song objects takes a while. Hopefully when this is
     # deployed I can just do this once at the start and then refer to the
     # existing objects. Creating new 'Song' objects is costly in terms of time.
-    da = debut_album()
+    da = list_debut_album_songs()
     fa = fearless_album()
 
 if __name__ == "__main__":

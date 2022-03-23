@@ -3,7 +3,8 @@ import sqlite3
 
 from flask import current_app, g
 from flask.cli import with_appcontext
-
+from ts_lyric_analysis.database.init_helper import populate_debut_album
+from ts_lyric_analysis.database.init_helper import populate_albums
 
 def get_db():
     if 'db' not in g:
@@ -22,17 +23,25 @@ def close_db(e=None):
         db.close()
 
 def init_db():
+    """ Initialises the database. Adds the song information as well as the empty
+    tables.
+    """
     db = get_db()
-
-    with current_app.open_resource("db/schema.sql") as f:
+    # Create the empty tables
+    with current_app.open_resource("database/schema.sql") as f:
         db.executescript(f.read().decode("utf8"))
+
+    populate_albums(db)
+    populate_debut_album(db)
 
 @click.command("init-db")
 @with_appcontext
 def init_db_command():
     """ Clear the existing data and create new tables. """
+    click.echo("Beginning the initialisation of the database")
     init_db()
     click.echo("Initialized the database.")
+
 
 def init_app(app):
     """ Register database functions with the Flask app. This is called by the
