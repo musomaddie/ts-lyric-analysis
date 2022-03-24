@@ -24,6 +24,7 @@ def populate_albums(db):
     # Debut album
     with current_app.open_resource(f"{DB_SCRIPT_FN}insert_debut_album.sql") as f:
         db.executescript(f.read().decode("utf8"))
+    db.commit()
 
 def populate_debut_album(db):
     """ Helper for init_db() that populates data from the début album. """
@@ -39,3 +40,4 @@ def populate_debut_album(db):
         db.execute(f"""INSERT INTO song_info 
             (song_title, album_id, track_number, lyric_source, is_from_the_vault)
             VALUES (?, ?, ?, ?, ?)""", adding_tuple,)
+    db.commit()

@@ -9,6 +9,7 @@ from flask import Blueprint
 # from flask import session
 # from flask import url
 from ts_lyric_analysis.lyrics import Lyrics
+from ts_lyric_analysis.db import get_db
 
 bp = Blueprint("song", __name__, url_prefix="/song")
 
@@ -112,6 +113,15 @@ class Song:
 @bp.route("/<song_name>", methods=["GET"])
 def show_lyrics(song_name):
     return f"Showing the lyrics {song_name}"
+
+
+@bp.route("")
+def something():
+    db = get_db()
+    query = """ SELECT * FROM song_info; """
+    song_name = db.executescript(query).fetchall()
+    return f"Showing the result {song_name}"
+
 
 if __name__ == "__main__":
     # Song("testing short", "testing", "testing")

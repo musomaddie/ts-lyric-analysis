@@ -34,6 +34,10 @@ def init_db():
     populate_albums(db)
     populate_debut_album(db)
 
+    db.executescript("""
+        INSERT INTO song_info VALUES (20, 'Examples', 1, 3, 'Examples', False); """)
+    db.commit()
+
 @click.command("init-db")
 @with_appcontext
 def init_db_command():
