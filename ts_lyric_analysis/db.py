@@ -23,8 +23,8 @@ def close_db(e=None):
         db.close()
 
 def init_db():
-    """ Initialises the database. Adds the song information as well as the empty
-    tables.
+    """ Initialises the database. Adds the song information as well as the
+    empty tables.
     """
     db = get_db()
     # Create the empty tables
@@ -33,10 +33,6 @@ def init_db():
 
     populate_albums(db)
     populate_debut_album(db)
-
-    db.executescript("""
-        INSERT INTO song_info VALUES (20, 'Examples', 1, 3, 'Examples', False); """)
-    db.commit()
 
 @click.command("init-db")
 @with_appcontext
@@ -49,7 +45,7 @@ def init_db_command():
 
 def init_app(app):
     """ Register database functions with the Flask app. This is called by the
-    application factory. 
+    application factory.
     """
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
