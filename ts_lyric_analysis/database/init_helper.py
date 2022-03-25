@@ -1,4 +1,5 @@
 from flask import current_app
+from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
 
 DB_SCRIPT_FN = "database/scripts/"
@@ -35,8 +36,6 @@ def populate_albums(db):
 
 def populate_debut_album(db):
     """ Helper for init_db() that populates data from the début album. """
-    # Including import here to avoid circular dependencies
-    from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
     da = list_debut_album_songs()
     a_id = _find_album_id(db, "Taylor Swift")
 
@@ -50,7 +49,6 @@ def populate_debut_album(db):
 def populate_fearless_album(db):
     """ Helper for init_db() that populates song data from the Fearless album.
     """
-    # Including import here to avoid circular dependencies
     f_songs = list_fearless_album_songs()
     a_id = _find_album_id(db, "Fearless (Taylor's Version)")
 
