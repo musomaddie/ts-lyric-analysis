@@ -5,7 +5,7 @@ def list_debut_album_songs():
     # just need the song title, album, track number and lyric source but I must
     # ensure the lyric file is created to avoid later issues.
     album = "Taylor Swift"
-    return [("Time McGraw", album, 1, "LyricFind"),
+    return [("Tim McGraw", album, 1, "LyricFind"),
             ("Picture To Burn", album, 2, "LyricFind"),
             ("Teardrops On My Guitar", album, 3, "LyricFind"),
             ("A Place In This World", album, 4, "LyricFind"),
