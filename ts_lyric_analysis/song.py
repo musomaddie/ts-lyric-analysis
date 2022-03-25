@@ -25,7 +25,7 @@ class Song:
             lyric_source (string): the source where there lyrics is from.
             is_from_the_vault (bool): whether or not the song is from the vault
                 so that adjustments can be made to the title if required.
-    
+
         Methods:
             __init__(name, album, lyric_source): creates a new Song object using
                 the given name, album and lyric source. Assumes that the lyrics
@@ -47,10 +47,11 @@ class Song:
         Also populates the lyric data from the file located at:
             static/lyrics/NAME.txt where NAME is the song name in lower case
             with punctuation removed.
-        
+
         Parameters:
             name (string): the name of the song
             album (string): the name of the album that contains the song.
+            track_number (int): the position of this song on the album.
             lyric_source (string): the source where these lyrics were found.
             is_from_the_vault (bool): whether the song is from the vault.
                 False unless specified otherwise.
@@ -64,6 +65,12 @@ class Song:
 
     def __repr__(self):
         return self.name
+
+    def __eq__(self, other):
+        return (self.name == other.name
+                and self.album == other.album
+                and self.track_number == other.track_number
+                and self.is_from_the_vault == other.is_from_the_vault)
 
     def _check_current_word_match(lyrics1, lyrics2, cw_index1, cw_index2):
         """ A helper that checks the current words for a match """
@@ -129,9 +136,9 @@ if __name__ == "__main__":
     bett = Song("betty", "Folklore", 14, "Musixmatch")
     card.compare_to_song(bett)
 
-    # Next step is to compare both of these and find all the matches. 
+    # Next step is to compare both of these and find all the matches.
     # Once I have all the matches I can work on formatting the webpage for the
-    # lyrics. 
+    # lyrics.
 
     # After that I can work on uploading all the songs and finding the most
     # commonly used words
