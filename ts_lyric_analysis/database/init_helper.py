@@ -1,4 +1,5 @@
 from flask import current_app
+from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
 
 DB_SCRIPT_FN = "database/scripts/"
 
@@ -23,8 +24,13 @@ def populate_albums(db):
     """ Populates the album information part of the database.  """
     # Debut album
     with current_app.open_resource(
-            f"{DB_SCRIPT_FN}insert_debut_album.sql") as f:
-        db.executescript(f.read().decode("utf8"))
+            f"{DB_SCRIPT_FN}insert_album.sql") as f:
+        db.execute(f.read().decode("utf8"),
+                   ("Taylor Swift", 1),)
+    with current_app.open_resource(
+            f"{DB_SCRIPT_FN}insert_album.sql") as f:
+        db.execute(f.read().decode("utf8"),
+                   ("Fearless (Taylor's Version)", 2))
     db.commit()
 
 def populate_debut_album(db):
@@ -40,3 +46,19 @@ def populate_debut_album(db):
             db.execute(f.read().decode("utf8"),
                        (song[0], a_id, song[2], song[3], False),)
     db.commit()
+
+def populate_fearless_album(db):
+    """ Helper for init_db() that populates song data from the Fearless album.
+    """
+    # Including import here to avoid circular dependencies
+    f_songs = list_fearless_album_songs()
+    a_id = _find_album_id(db, "Fearless (Taylor's Version)")
+
+    for song in f_songs:
+        if len(song) == 4:
+            song = list(song) + [False]
+        with current_app.open_resource(
+                f"{DB_SCRIPT_FN}insert_song.sql") as f:
+            db.execute(f.read().decode("utf8"),
+                       song)
+        db.commit()

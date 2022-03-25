@@ -3,8 +3,9 @@ import sqlite3
 
 from flask import current_app, g
 from flask.cli import with_appcontext
-from ts_lyric_analysis.database.init_helper import populate_debut_album
 from ts_lyric_analysis.database.init_helper import populate_albums
+from ts_lyric_analysis.database.init_helper import populate_debut_album
+from ts_lyric_analysis.database.init_helper import populate_fearless_album
 
 def get_db():
     if 'db' not in g:
@@ -33,6 +34,7 @@ def init_db():
 
     populate_albums(db)
     populate_debut_album(db)
+    populate_fearless_album(db)
 
 @click.command("init-db")
 @with_appcontext

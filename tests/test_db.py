@@ -36,16 +36,6 @@ def test_init_debut_album(app):
         assert album is not None
         assert album["order_of_release"] == 1
 
-        a_id = album["id"]
-
-        # Get the songs
-        songs_from_db = [s["song_title"] for s in db.execute(
-            """ SELECT song_title
-                FROM song_info
-                WHERE album_id = ?; """, (a_id,)).fetchall()]
-        for song in _get_songs_from_album("Taylor Swift"):
-            assert song[0] in songs_from_db
-
 def test_init_debut_album_songs(app):
     """ Testing this makes the tests take longer, but I believe it is important
     to test this to avoid future issues, and to make the process of writing the
@@ -71,3 +61,40 @@ def test_init_debut_album_songs(app):
                                     song[2],
                                     song[3],
                                     False)
+
+def test_init_fearless_album(app):
+    with app.app_context():
+        init_db()
+        db = get_db()
+        album = db.execute(
+            """ SELECT *
+                FROM album_info
+                WHERE album_name = "Fearless (Taylor's Version)" """
+        ).fetchone()
+
+        assert album is not None
+        assert album["album_name"] == "Fearless (Taylor's Version)"
+
+def test_init_fearless_album_songs(app):
+    album_name = "Fearless (Taylor's Version)"
+    with app.app_context():
+        init_db()
+        db = get_db()
+
+        for song in _get_songs_from_album(album_name):
+            song_db = db.execute(
+                """ SELECT *
+                    FROM song_info
+                    WHERE song_title = ? """,
+                (song[0],)).fetchone()
+            assert song_db is not None
+
+            song_obj_db = Song(song_db["song_title"],
+                               album_name,
+                               song_db["track_number"],
+                               song_db["lyric_source"],
+                               song_db["is_from_the_vault"])
+            if len(song) == 4:
+                song = list(song) + [False]
+            song_obj_test = Song(**song)
+            assert song_obj_db == song_obj_test
