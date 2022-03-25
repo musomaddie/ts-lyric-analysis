@@ -7,12 +7,12 @@ DB_SCRIPT_FN = "database/scripts/"
 def _find_album_id(db, album_name):
     """ Helper to find the given album id from the database.
 
-        Parameters:
-            db: the database to search
-            album_name: the album we are looking for
+    Parameters:
+        db: the database to search
+        album_name: the album we are looking for
 
-        Returns:
-            int: the id of the album, -1 if the given album_name is not found.
+    Returns:
+        int: the id of the album, -1 if the given album_name is not found.
     """
     with current_app.open_resource(f"{DB_SCRIPT_FN}select_album_id.sql") as f:
         result = db.execute(f.read().decode("utf8"),
@@ -28,6 +28,7 @@ def populate_albums(db):
             f"{DB_SCRIPT_FN}insert_album.sql") as f:
         db.execute(f.read().decode("utf8"),
                    ("Taylor Swift", 1),)
+    # Fearless
     with current_app.open_resource(
             f"{DB_SCRIPT_FN}insert_album.sql") as f:
         db.execute(f.read().decode("utf8"),
@@ -53,10 +54,11 @@ def populate_fearless_album(db):
     a_id = _find_album_id(db, "Fearless (Taylor's Version)")
 
     for song in f_songs:
-        if len(song) == 4:
-            song = list(song) + [False]
+        val4 = False
+        if len(song) == 5 and song[4]:
+            val4 = True
+        values = [song[0], a_id, song[2], song[3], val4]
         with current_app.open_resource(
                 f"{DB_SCRIPT_FN}insert_song.sql") as f:
-            db.execute(f.read().decode("utf8"),
-                       song)
+            db.execute(f.read().decode("utf8"), values)
         db.commit()

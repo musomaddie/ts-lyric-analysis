@@ -1,4 +1,4 @@
-import functools
+# import functools
 
 from flask import Blueprint
 # from flask import flash
@@ -17,31 +17,35 @@ class Song:
     """ Contains all the information needed for the current song. Is also a
     blueprint for the flask application to view details about this song.
 
-        Parameters:
-            name (string): the name of the song
-            album (string): the name of the album the song is on.
-            track_number (int): the track number of the song on the album.
-            lyrics (Lyrics): the lyrics of the song
-            lyric_source (string): the source where there lyrics is from.
-            is_from_the_vault (bool): whether or not the song is from the vault
-                so that adjustments can be made to the title if required.
+    Parameters:
+        name (string): the name of the song
+        album (string): the name of the album the song is on.
+        track_number (int): the track number of the song on the album.
+        lyrics (Lyrics): the lyrics of the song
+        lyric_source (string): the source where there lyrics is from.
+        is_from_the_vault (bool): whether or not the song is from the vault
+            so that adjustments can be made to the title if required.
 
-        Methods:
-            __init__(name, album, lyric_source): creates a new Song object using
-                the given name, album and lyric source. Assumes that the lyrics
-                for the song are saved in an appropriately named file.
-            compare_to_song(song): finds all the words in common between this
-                song and the supplied one.
+    Methods:
+        __init__(name, album, lyric_source): creates a new Song object using
+            the given name, album and lyric source. Assumes that the lyrics
+            for the song are saved in an appropriately named file.
+        compare_to_song(song): finds all the words in common between this
+            song and the supplied one.
     """
 
-    # TODO: write a population script and save all this information in a db so I
-    # can look it up easily and not have a bunch of static files floating
+    # TODO: write a population script and save all this information in a db so
+    # I  can look it up easily and not have a bunch of static files floating
     # around.
 
     # I will leave the lyrics inside a folder to cut down file size.
 
-    def __init__(self, name, album, track_number, lyric_source,
-            is_from_the_vault=False):
+    def __init__(self,
+                 name,
+                 album,
+                 track_number,
+                 lyric_source,
+                 is_from_the_vault=False):
         """ Creates an new song object with the given name album and lyric
         source.
         Also populates the lyric data from the file located at:
@@ -97,25 +101,26 @@ class Song:
             other_song (Song): the song to find matches from.
         """
         print(f"Comparing {self} and {other_song}")
-        this_current_word_index = 0
-        other_current_word_index = 0
+        this_cw_idx = 0
+        other_cw_idx = 0
         # Adding variable for ease
         this_lyrics = self.lyrics.sorted_lyrics
         other_lyrics = other_song.lyrics.sorted_lyrics
 
         while True:
-            Song._check_current_word_match(this_lyrics, other_lyrics,
-                    this_current_word_index, other_current_word_index)
+            Song._check_current_word_match(this_lyrics,
+                                           other_lyrics,
+                                           this_cw_idx,
+                                           other_cw_idx)
             # If we do not check the match before this exit condition the last
             # word is never checked
-
-            if ((len(this_lyrics) - 1 == this_current_word_index) and
-                    (len(other_lyrics) - 1 == other_current_word_index)):
+            if ((len(this_lyrics) - 1 == this_cw_idx) and
+                    (len(other_lyrics) - 1 == other_cw_idx)):
                 break
 
-            this_current_word_index, other_current_word_index = Song._move_indices(
+            this_cw_idx, other_cw_idx = Song._move_indices(
                     this_lyrics, other_lyrics,
-                    this_current_word_index, other_current_word_index)
+                    this_cw_idx, other_cw_idx)
 
 @bp.route("/<song_name>", methods=["GET"])
 def show_lyrics(song_name):
