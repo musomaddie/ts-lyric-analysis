@@ -1,10 +1,13 @@
 from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
 from ts_lyric_analysis.db import get_db, init_db
 from ts_lyric_analysis.song import Song
 
 def _get_songs_from_album(album_name):
     if album_name == "Taylor Swift":
         return list_debut_album_songs()
+    if album_name == "Fearless (Taylor's Version)":
+        return list_fearless_album_songs()
     return []
 
 def test_get_close_db(app):
@@ -81,7 +84,9 @@ def test_init_fearless_album_songs(app):
         init_db()
         db = get_db()
 
+        song_count = 0
         for song in _get_songs_from_album(album_name):
+            song_count += 1
             song_db = db.execute(
                 """ SELECT *
                     FROM song_info
@@ -96,5 +101,7 @@ def test_init_fearless_album_songs(app):
                                song_db["is_from_the_vault"])
             if len(song) == 4:
                 song = list(song) + [False]
-            song_obj_test = Song(**song)
+            song_obj_test = Song(*song)
             assert song_obj_db == song_obj_test
+
+        assert song_count != 0, "No songs were found for the album"
