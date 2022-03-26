@@ -27,18 +27,20 @@ def populate_albums(db):
     with current_app.open_resource(
             f"{DB_SCRIPT_FN}insert_album.sql") as f:
         db.execute(f.read().decode("utf8"),
-                   ("Taylor Swift", 1),)
+                   ("Taylor Swift", 1, 2006, False))
     # Fearless
     with current_app.open_resource(
             f"{DB_SCRIPT_FN}insert_album.sql") as f:
         db.execute(f.read().decode("utf8"),
-                   ("Fearless (Taylor's Version)", 2))
+                   ("Fearless", 2, 2008, True))
     db.commit()
 
 def populate_debut_album(db):
     """ Helper for init_db() that populates data from the début album. """
     da = list_debut_album_songs()
     a_id = _find_album_id(db, "Taylor Swift")
+    if a_id == -1:
+        print("Couldn't find the debut album")
 
     for song in da:
         with current_app.open_resource(
@@ -51,7 +53,9 @@ def populate_fearless_album(db):
     """ Helper for init_db() that populates song data from the Fearless album.
     """
     f_songs = list_fearless_album_songs()
-    a_id = _find_album_id(db, "Fearless (Taylor's Version)")
+    a_id = _find_album_id(db, "Fearless")
+    if a_id == -1:
+        print("Couldn't find the Fearless album")
 
     for song in f_songs:
         val4 = False

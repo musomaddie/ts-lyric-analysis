@@ -7,7 +7,9 @@ DROP TABLE IF EXISTS album_info;
 CREATE TABLE album_info(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	album_name TEXT NOT NULL,
-	order_of_release INTEGER
+	order_of_release INTEGER NOT NULL,
+	release_year INTEGER NOT NULL,
+	is_taylors_version BOOLEAN NOT NULL
 );
 
 CREATE TABLE song_info(
