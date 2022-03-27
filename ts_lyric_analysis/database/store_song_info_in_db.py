@@ -15,11 +15,10 @@ def list_debut_album_songs():
             ("Mary's Song (Oh My My My)", album, 10, "MusixMatch"),
             ("Our Song", album, 11, "MusixMatch"),
             ("I'm Only Me When I'm With You", album, 12, "LyricFind"),
-            ("Invisible", album, 13, "LyricFind")
-    ]
+            ("Invisible", album, 13, "LyricFind")]
 
 def list_fearless_album_songs():
-    album = "Fearless (Taylor's Version)"
+    album = "Fearless"
     return [("Fearless", album, 1, "Musixmatch"),
             ("Fifteen", album, 2, "Musixmatch"),
             ("Love Story", album, 3, "LyricFind"),
@@ -46,3 +45,23 @@ def list_fearless_album_songs():
             ("That's When", album, 24, "LyricFind", True),
             ("Don't You", album, 25, "LyricFind", True),
             ("Bye Bye Baby", album, 26, "Musixmatch", True)]
+
+def list_speak_now_album_songs():
+    album = "Speak Now"
+    return [("Mine", album, 1, "LyricFind"),
+            ("Sparks Fly", album, 2, "LyricFind"),
+            ("Back To December", album, 3, "LyricFind"),
+            ("Speak Now", album, 4, "Musixmatch"),
+            ("Dear John", album, 5, "Musixmatch"),
+            ("Mean", album, 6, "Musixmatch"),
+            ("The Story Of Us", album, 7, "Musixmatch"),
+            ("Never Grow Up", album, 8, "Musixmatch"),
+            ("Enchanted", album, 9, "LyricFind"),
+            ("Better Than Revenge", album, 10, "LyricFind"),
+            ("Innocent", album, 11, "Musixmatch"),
+            ("Haunted", album, 15, "LyricFind"),
+            ("Last Kiss", album, 16, "LyricFind"),
+            ("Long Live", album, 17, "Genius Lyrics"),
+            ("Ours", album, 18, "Musixmatch"),
+            ("If This Was A Movie", album, 19, "LyricFind"),
+            ("Superman", album, 20, "LyricFind")]

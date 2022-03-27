@@ -3,14 +3,19 @@ import pytest
 from ts_lyric_analysis.album import Album
 from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
 from ts_lyric_analysis.db import get_db, init_db
 from ts_lyric_analysis.song import Song
+
+ALL_ALBUM_NAMES = ["Taylor Swift", "Fearless", "Speak Now"]
 
 def _get_songs_from_album(album_name):
     if album_name == "Taylor Swift":
         return list_debut_album_songs()
     if album_name == "Fearless":
         return list_fearless_album_songs()
+    if album_name == "Speak Now":
+        return list_speak_now_album_songs()
     return []
 
 def test_init_db_command(runner, monkeypatch):
@@ -26,7 +31,7 @@ def test_init_db_command(runner, monkeypatch):
     assert Recorder.called
 
 
-@pytest.mark.parametrize("album_name", [("Taylor Swift"), ("Fearless")])
+@pytest.mark.parametrize("album_name", ALL_ALBUM_NAMES)
 def test_init_album_success(app, album_name):
     with app.app_context():
         init_db()
@@ -42,7 +47,7 @@ def test_init_album_success(app, album_name):
         album_obj = Album(*album_db[1:])
         assert album_name == album_obj.name
 
-@pytest.mark.parametrize("album_name", [("Taylor Swift"), ("Fearless")])
+@pytest.mark.parametrize("album_name", ALL_ALBUM_NAMES)
 def test_init_songs_success(app, album_name):
     """ Testing this makes the tests take longer, but I believe it is important
     to test this to avoid future issues, and to make the process of writing the

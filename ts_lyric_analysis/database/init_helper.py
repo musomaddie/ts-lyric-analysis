@@ -1,6 +1,7 @@
 from flask import current_app
 from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
 
 DB_SCRIPT_FN = "database/scripts/"
 
@@ -33,6 +34,12 @@ def populate_albums(db):
             f"{DB_SCRIPT_FN}insert_album.sql") as f:
         db.execute(f.read().decode("utf8"),
                    ("Fearless", 2, 2008, True))
+
+    # Speak Now
+    with current_app.open_resource(
+            f"{DB_SCRIPT_FN}insert_album.sql") as f:
+        db.execute(f.read().decode("utf8"),
+                   ("Speak Now", 3, 2010, False))
     db.commit()
 
 def populate_debut_album(db):
@@ -65,4 +72,20 @@ def populate_fearless_album(db):
         with current_app.open_resource(
                 f"{DB_SCRIPT_FN}insert_song.sql") as f:
             db.execute(f.read().decode("utf8"), values)
+        db.commit()
+
+def populate_speak_now_album(db):
+    """ Helper for init_db() that populates songs from Speak Now. """
+    # TODO: reduce all these methods because they're basically the same for
+    # every album but with the hard coded album name.
+    ss = list_speak_now_album_songs()
+    a_id = _find_album_id(db, "Speak Now")
+    if a_id == -1:
+        print("Couldn't find the Speak Now album.")
+
+    for song in ss:
+        with current_app.open_resource(
+                f"{DB_SCRIPT_FN}insert_song.sql") as f:
+            db.execute(f.read().decode("utf8"),
+                       (song[0], a_id, song[2], song[3], False))
         db.commit()
