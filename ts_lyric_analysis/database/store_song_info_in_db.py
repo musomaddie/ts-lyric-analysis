@@ -65,3 +65,38 @@ def list_speak_now_album_songs():
             ("Ours", album, 18, "Musixmatch"),
             ("If This Was A Movie", album, 19, "LyricFind"),
             ("Superman", album, 20, "LyricFind")]
+
+def list_read_album_songs():
+    album = "Red"
+    return [
+        ("State of Grace", album, 1, "Musixmatch"),
+        ("Red", album, 2, "Musixmatch"),
+        ("Treacherous", album, 3, "LyricFind"),
+        ("I Knew You Were Trouble", album, 4, "Genius Lyrics"),
+        ("All Too Well", album, 5, "LyricFind"),
+        ("22", album, 6, "LyricFind"),
+        ("I Almost Do", album, 7, "Musixmatch"),
+        ("We Are Never Ever Getting Back Together", album, 8, "LyricFind"),
+        ("Stay Stay Stay", album,  9, "Musixmatch"),
+        ("The Last Time", album, 10, "LyricFind"),
+        ("Holy Ground", album, 11, "AZ Lyrics"),
+        ("Sad Beautiful Tragic", album, 12, "Musixmatch"),
+        ("The Lucky One", album, 13, "Genius Lyrics"),
+        ("Everything Has Changed", album, 14, "LyricFind"),
+        ("Starlight", album, 15, "Musixmatch"),
+        ("Begin Again", album, 16, "Musixmatch"),
+        ("The Moment I Knew", album, 17, "Musixmatch"),
+        ("Come Back... Be Here", album, 18, "Musixmatch"),
+        ("Girt At Home", album, 19, "Musixmatch"),
+        ("State of Grace (Acoustic Version)", album, 20, "Musixmatch"),
+        ("Ronan", album, 21, "LyricFind"),
+        ("Better Man", album, 22, "Musixmatch", True),
+        ("Nothing New", album, 23, "Musixmatch", True),
+        ("Babe", album, 24, "Musixmatch", True),
+        ("Message in a Bottle", album, 25, "LyricFind", True),
+        ("I Bet You Think About Me", album, 26, "Musixmatch", True),
+        ("Forever Winter", album, 27, "Musixmatch", True),
+        ("Run", album, 28, "Musixmatch", True),
+        ("The Very First Night", album, 29, "LyricFind", True),
+        ("All Too Well (10 minute version)", album, 30, "LyricFind", True)
+    ]
