@@ -1,16 +1,16 @@
 import functools
 
-from flask import Blueprint
+from flask import Blueprint, render_template
 # from flask import flash
 # from flask import g
 # from flask import redirect
-# from flask import render_templates
 # from flask import request
 # from flask import session
 # from flask import url
 from ts_lyric_analysis.lyrics import Lyrics
 
 bp = Blueprint("song", __name__, url_prefix="/song")
+TEMPLATE_DIR = "songs/"
 
 class Song:
     """ Contains all the information needed for the current song. Is also a
@@ -21,7 +21,7 @@ class Song:
             album (string): the name of the album the song is on.
             lyrics (Lyrics): the lyrics of the song
             lyric_source (string): the source where there lyrics is from.
-    
+
         Methods:
             __init__(name, album, lyric_source): creates a new Song object using
                 the given name, album and lyric source. Assumes that the lyrics
@@ -42,7 +42,7 @@ class Song:
         Also populates the lyric data from the file located at:
             static/lyrics/NAME.txt where NAME is the song name in lower case
             with punctuation removed.
-        
+
         Parameters:
             name (string): the name of the song
             album (string): the name of the album that contains the song.
@@ -101,19 +101,25 @@ class Song:
                     this_lyrics, other_lyrics,
                     this_current_word_index, other_current_word_index)
 
+    def display_lyrics(self):
+        """ TODO: add documentation and position in class logically. """
+        return self.lyrics.display_lyrics()
+
 @bp.route("/<song_name>", methods=["GET"])
 def show_lyrics(song_name):
-    return f"Showing the lyrics {song_name}"
+    # TODO: generalise this once the database exists
+    return render_template(f"{TEMPLATE_DIR}view_song_lyrics.html",
+                           song=Song("betty", "Folklore", "Musixmatch"))
 
 if __name__ == "__main__":
     # Song("testing short", "testing", "testing")
-    card = Song("cardigan", "Folklore", "Musixmatch")
+    # card = Song("cardigan", "Folklore", "Musixmatch")
     bett = Song("betty", "Folklore", "Musixmatch")
-    card.compare_to_song(bett)
+    # card.compare_to_song(bett)
 
-    # Next step is to compare both of these and find all the matches. 
+    # Next step is to compare both of these and find all the matches.
     # Once I have all the matches I can work on formatting the webpage for the
-    # lyrics. 
+    # lyrics.
 
     # After that I can work on uploading all the songs and finding the most
     # commonly used words
