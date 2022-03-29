@@ -66,7 +66,7 @@ def list_speak_now_album_songs():
             ("If This Was A Movie", album, 19, "LyricFind"),
             ("Superman", album, 20, "LyricFind")]
 
-def list_read_album_songs():
+def list_red_album_songs():
     album = "Red"
     return [
         ("State of Grace", album, 1, "Musixmatch"),
@@ -87,7 +87,7 @@ def list_read_album_songs():
         ("Begin Again", album, 16, "Musixmatch"),
         ("The Moment I Knew", album, 17, "Musixmatch"),
         ("Come Back... Be Here", album, 18, "Musixmatch"),
-        ("Girt At Home", album, 19, "Musixmatch"),
+        ("Girl At Home", album, 19, "Musixmatch"),
         ("State of Grace (Acoustic Version)", album, 20, "Musixmatch"),
         ("Ronan", album, 21, "LyricFind"),
         ("Better Man", album, 22, "Musixmatch", True),

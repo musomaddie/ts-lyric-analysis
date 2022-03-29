@@ -2,6 +2,7 @@ from flask import current_app
 from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_red_album_songs
 
 DB_SCRIPT_FN = "database/scripts/"
 
@@ -20,6 +21,8 @@ def _get_songs_from_album(album_name):
         return list_fearless_album_songs()
     elif album_name == "Speak Now":
         return list_speak_now_album_songs()
+    elif album_name == "Red":
+        return list_red_album_songs()
     return []
 
 def _find_album_id(db, album_name):
@@ -39,24 +42,17 @@ def _find_album_id(db, album_name):
             return -1
         return result["id"]
 
+def _add_specific_album_values(db, values):
+    with current_app.open_resource(
+            f"{DB_SCRIPT_FN}insert_album.sql") as f:
+        db.execute(f.read().decode("utf8"), values)
+
 def populate_albums(db):
     """ Populates the album information part of the database.  """
-    # Debut album
-    with current_app.open_resource(
-            f"{DB_SCRIPT_FN}insert_album.sql") as f:
-        db.execute(f.read().decode("utf8"),
-                   ("Taylor Swift", 1, 2006, False))
-    # Fearless
-    with current_app.open_resource(
-            f"{DB_SCRIPT_FN}insert_album.sql") as f:
-        db.execute(f.read().decode("utf8"),
-                   ("Fearless", 2, 2008, True))
-
-    # Speak Now
-    with current_app.open_resource(
-            f"{DB_SCRIPT_FN}insert_album.sql") as f:
-        db.execute(f.read().decode("utf8"),
-                   ("Speak Now", 3, 2010, False))
+    _add_specific_album_values(db, ("Taylor Swift", 1, 2006, False))
+    _add_specific_album_values(db, ("Fearless", 2, 2008, True))
+    _add_specific_album_values(db, ("Speak Now", 3, 2010, False))
+    _add_specific_album_values(db, ("Red", 4, 2012, True))
     db.commit()
 
 def populate_songs(db, album_name):
