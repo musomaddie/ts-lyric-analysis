@@ -5,6 +5,23 @@ from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_albu
 
 DB_SCRIPT_FN = "database/scripts/"
 
+def _get_songs_from_album(album_name):
+    """ Helper that gets the song list for the given album.
+
+    Parameters:
+        album_name: the name of the album.
+
+    Returns:
+        list<?>: the information for all songs in the album.
+    """
+    if album_name == "Taylor Swift":
+        return list_debut_album_songs()
+    elif album_name == "Fearless":
+        return list_fearless_album_songs()
+    elif album_name == "Speak Now":
+        return list_speak_now_album_songs()
+    return []
+
 def _find_album_id(db, album_name):
     """ Helper to find the given album id from the database.
 
@@ -42,29 +59,16 @@ def populate_albums(db):
                    ("Speak Now", 3, 2010, False))
     db.commit()
 
-def populate_debut_album(db):
-    """ Helper for init_db() that populates data from the début album. """
-    da = list_debut_album_songs()
-    a_id = _find_album_id(db, "Taylor Swift")
-    if a_id == -1:
-        print("Couldn't find the debut album")
-
-    for song in da:
-        with current_app.open_resource(
-                f"{DB_SCRIPT_FN}insert_song.sql") as f:
-            db.execute(f.read().decode("utf8"),
-                       (song[0], a_id, song[2], song[3], False),)
-    db.commit()
-
-def populate_fearless_album(db):
-    """ Helper for init_db() that populates song data from the Fearless album.
+def populate_songs(db, album_name):
+    """ Helper for init_db() that populates all the songs of the given album
+    name.
     """
-    f_songs = list_fearless_album_songs()
-    a_id = _find_album_id(db, "Fearless")
+    album_song_list = _get_songs_from_album(album_name)
+    a_id = _find_album_id(db, album_name)
     if a_id == -1:
-        print("Couldn't find the Fearless album")
+        print(f"Couldn't find {album_name} in the database.")
 
-    for song in f_songs:
+    for song in album_song_list:
         val4 = False
         if len(song) == 5 and song[4]:
             val4 = True
@@ -72,20 +76,4 @@ def populate_fearless_album(db):
         with current_app.open_resource(
                 f"{DB_SCRIPT_FN}insert_song.sql") as f:
             db.execute(f.read().decode("utf8"), values)
-        db.commit()
-
-def populate_speak_now_album(db):
-    """ Helper for init_db() that populates songs from Speak Now. """
-    # TODO: reduce all these methods because they're basically the same for
-    # every album but with the hard coded album name.
-    ss = list_speak_now_album_songs()
-    a_id = _find_album_id(db, "Speak Now")
-    if a_id == -1:
-        print("Couldn't find the Speak Now album.")
-
-    for song in ss:
-        with current_app.open_resource(
-                f"{DB_SCRIPT_FN}insert_song.sql") as f:
-            db.execute(f.read().decode("utf8"),
-                       (song[0], a_id, song[2], song[3], False))
         db.commit()
