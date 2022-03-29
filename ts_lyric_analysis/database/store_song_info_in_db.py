@@ -100,3 +100,24 @@ def list_red_album_songs():
         ("The Very First Night", album, 29, "LyricFind", True),
         ("All Too Well (10 minute version)", album, 30, "LyricFind", True)
     ]
+
+def list_1989_album_songs():
+    album = "1989"
+    return [
+        ("Welcome To New York", album, 1, "Musixmatch"),
+        ("Blank Space", album, 2, "LyricFind"),
+        ("Style", album, 3, "Musixmatch"),
+        ("Out Of The Woods", album, 4, "Musixmatch"),
+        ("All You Had To Do Was Stay", album, 5, "Musixmatch"),
+        ("Shake It Off", album, 6, "Musixmatch"),
+        ("I Wish You Would", album, 7, "LyricFind"),
+        ("Bad Blood", album, 8, "LyricFind"),
+        ("Wildest Dreams", album, 9, "Musixmatch", True),
+        ("How You Get the Girl", album, 10, "LyricFind"),
+        ("This Love", album, 11, "Musixmatch"),
+        ("I Know Places", album, 12, "LyricFind"),
+        ("Clean", album, 13, "LyricFind"),
+        ("Wonderland", album, 14, "LyricFind"),
+        ("You Are In Love", album, 15, "LyricFind"),
+        ("New Romantics", album, 16, "Musixmatch")
+    ]

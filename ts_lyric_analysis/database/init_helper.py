@@ -3,6 +3,7 @@ from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_so
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_red_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_1989_album_songs
 
 DB_SCRIPT_FN = "database/scripts/"
 
@@ -23,6 +24,8 @@ def _get_songs_from_album(album_name):
         return list_speak_now_album_songs()
     elif album_name == "Red":
         return list_red_album_songs()
+    elif album_name == "1989":
+        return list_1989_album_songs()
     return []
 
 def _find_album_id(db, album_name):
@@ -53,6 +56,7 @@ def populate_albums(db):
     _add_specific_album_values(db, ("Fearless", 2, 2008, True))
     _add_specific_album_values(db, ("Speak Now", 3, 2010, False))
     _add_specific_album_values(db, ("Red", 4, 2012, True))
+    _add_specific_album_values(db, ("1989", 5, 2014, False))
     db.commit()
 
 def populate_songs(db, album_name):
