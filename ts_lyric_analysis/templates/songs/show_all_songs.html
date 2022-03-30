@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{%block content %}
+<h1> Taylor Swift's Song Collection: </h1>
+
+{% for song in songs %}
+	<br>
+	{{ song.name }}
+	</br>
+{% endfor %}
+
+{% endblock %}

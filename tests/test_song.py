@@ -1,5 +1,6 @@
 import pytest
 
+from ts_lyric_analysis.db import get_db
 from ts_lyric_analysis.song import Song
 
 @pytest.fixture
@@ -152,3 +153,32 @@ def test_compare_songs_original_positions(testing_song, testing_short_song):
     assert sr[4].matched_word is None  # shorter
     assert sr[5].matched_word is None  # song
     assert sr[6].matched_word is None  # BREAK
+
+def test_make_song_from_db(app):
+    with app.app_context():
+        db = get_db()
+        song = db.execute(
+            """ SELECT *
+                FROM song_info
+                WHERE song_title = 'Tim McGraw';""").fetchone()
+        assert song is not None
+
+        # lyric source isn't included in equality check.
+        expected_song = Song("Tim McGraw", 1, 1, "")
+        actual_song = Song.make_song_from_db(song)
+        assert actual_song == expected_song
+
+def test_make_songs_from_db(app):
+    with app.app_context():
+        db = get_db()
+        songs = db.execute(
+            """ SELECT *
+                FROM song_info
+                WHERE song_title = 'Tim McGraw'
+                    OR song_title = 'Picture To Burn';""").fetchall()
+        assert len(songs) == 2
+
+        expected_songs = [Song("Tim McGraw", 1, 1, ""),
+                          Song("Picture To Burn", 1, 2, "")]
+        actual_songs = Song.make_songs_from_db(songs)
+        assert expected_songs == actual_songs

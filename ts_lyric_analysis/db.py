@@ -7,13 +7,15 @@ from ts_lyric_analysis.database.init_helper import populate_albums
 from ts_lyric_analysis.database.init_helper import populate_songs
 
 def get_db():
-    if 'db' not in g:
+    if "db" not in g:
+        print("Connecting to the db for the first time")
         g.db = sqlite3.connect(
                 current_app.config["DATABASE"],
                 detect_types=sqlite3.PARSE_DECLTYPES
         )
         g.db.row_factory = sqlite3.Row
 
+    print("Returning db")
     return g.db
 
 def close_db(e=None):

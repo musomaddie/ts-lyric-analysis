@@ -1,17 +1,12 @@
 # import functools
 
-from flask import Blueprint, render_template
-# from flask import flash
-# from flask import g
-# from flask import redirect
-# from flask import request
-# from flask import session
-# from flask import url
+from flask import Blueprint, current_app, render_template
 from ts_lyric_analysis.lyrics import Lyrics
 from ts_lyric_analysis.db import get_db
 
 bp = Blueprint("song", __name__, url_prefix="/song")
 TEMPLATE_DIR = "songs/"
+DB_SCRIPT_FN = "database/scripts/"
 
 class Song:
     """ Contains all the information needed for the current song. Is also a
@@ -33,14 +28,11 @@ class Song:
         compare_to_song(song): finds all the words in common between this
             song and the supplied one.
         display_lyrics(): readies the lyrics to be displayed on the webpage.
+        make_song_from_db(db_value): turns the result returned from the
+            database into a song object if it exists.
+        make_songs_from_db(db_values): turns the results returned from the
+            database into song objects.
     """
-
-    # TODO: write a population script and save all this information in a db so
-    # I  can look it up easily and not have a bunch of static files floating
-    # around.
-
-    # I will leave the lyrics inside a folder to cut down file size.
-
     def __init__(self,
                  name,
                  album,
@@ -136,6 +128,40 @@ class Song:
         """
         return self.lyrics.display_lyrics()
 
+    def make_song_from_db(db_value):
+        """ Turns the value from the database into a song object.
+
+        Parameters:
+            db_value (sqlite3.Row): the value to turn into a song.
+
+        Returns:
+            Song: the song created from the object. None if the db_value was
+                None.
+        """
+        # The db_value includes the database ID which we do not need so ignore
+        # it
+        return Song(*db_value[1:])
+
+    def make_songs_from_db(db_values):
+        """ Turns the values from the database into a list of song objects. The
+            returned list will be in the same order as the supplied values.
+
+        Parameters:
+            db_values (List<sqlite3.Row): the values to make into songs.
+
+        Returns:
+            list<Song>: the songs created from the supplied values.
+        """
+        return [Song.make_song_from_db(value) for value in db_values]
+
+
+""" All the methods associated with the blueprint go beneath here.
+
+Methods:
+    show_lyrics(song_name): displays the lyrics of the given song.
+    list_all_songs(): displays a list of all Taylor's songs.
+"""
+
 @bp.route("/<song_name>", methods=["GET"])
 def show_lyrics(song_name):
     # TODO: generalise this once the database exists
@@ -144,11 +170,16 @@ def show_lyrics(song_name):
 
 
 @bp.route("")
-def something():
+def list_all_songs():
+    # TODO: update this to do something more useful: maybe pretty album page.
     db = get_db()
-    query = """ SELECT * FROM song_info; """
-    song_name = db.executescript(query).fetchall()
-    return f"Showing the result {song_name}"
+    songs = []
+    with current_app.open_resource(
+            f"{DB_SCRIPT_FN}get_all_songs.sql") as f:
+        result = db.execute(f.read().decode("utf8")).fetchall()
+        songs = Song.make_songs_from_db(result)
+    return render_template(f"{TEMPLATE_DIR}show_all_songs.html",
+                           songs=songs)
 
 
 if __name__ == "__main__":
