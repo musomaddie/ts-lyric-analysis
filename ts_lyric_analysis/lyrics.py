@@ -3,15 +3,15 @@ from ts_lyric_analysis.util import remove_punctuation
 
 class Lyrics:
 
-    """ 
-    So this is going to contain all the lyrics in order as they are in the song. 
+    """
+    So this is going to contain all the lyrics in order as they are in the song.
     I need some way to maintain line endings as this is an important thing - so
     this can probably be its own word as a special thing.
 
     I would like the analysis to run fast so I will need to sort the lyrics to
     allow faster matching - helper function maybe??
         - order to get the comparison and then when reordering count how many in
-          the row. 
+          the row.
 
         Parameters:
             original_lyrics (list<Word>): all the lyrics in their original
@@ -77,7 +77,7 @@ class Lyrics:
         """ Recursive helper for the above. """
         if starting_index == ending_index - 1:
             # Only add to list if this is a word.
-            if (original_array[starting_index].is_line_break 
+            if (original_array[starting_index].is_line_break
                     or original_array[starting_index].is_paragraph_break):
                 return []
             return [original_array[starting_index]]
@@ -98,14 +98,14 @@ class Lyrics:
         filename following the same convention: static/lyrics/NAME.txt where
         NAME is the song name in lower case without punctuation.
 
-            Parameters: 
+            Parameters:
                 songname (str): the name of the song for the lyric file.
         """
         songname_formatted = remove_punctuation(songname.lower())
 
         lines = []
         with open(f"ts_lyric_analysis/static/lyrics/{songname_formatted}.txt", "r") as f:
-            lines = [line.rstrip() for line in f]
+            lines = [line.strip() for line in f]
         self._save_lyrics(lines)
 
     def _save_lyrics(self, lyrics):
@@ -128,7 +128,7 @@ class Lyrics:
     def _sort_lyrics(self):
         """ Once the original lyrics are created sorts them into order. This
         also involves squishing duplicates into one item and removing line
-        breaks. 
+        breaks.
         """
         # Using sorted(list) hasn't worked because it copies to make the new
         # list therefore changes to the lyrics in sorted_list won't change
@@ -148,3 +148,33 @@ class Lyrics:
         print(f"Match between {word1} and {word2}")
         word1.mark_match(word2)
         word2.mark_match(word1)
+
+    def display_lyrics(self):
+        """ Returns the lyrics from this song formatted for display.
+
+        TODO: once db is merged in update this description and the position in the class.
+        """
+        to_display = []
+        current_paragraph = []
+        current_line = []
+        for word in self.original_lyrics:
+            if word.is_line_break:
+                # Special case for if the break is right after a paragraph
+                if len(current_line) == 0:
+                    continue
+
+                current_paragraph.append(current_line)
+                current_line = []
+
+            elif word.is_paragraph_break:
+                to_display.append(current_paragraph)
+                current_line = []
+                current_paragraph = []
+
+            else:
+                current_line.append(word.original_word)
+
+        # Adding the paragraph to the display as the line has been adding to
+        # the paragraph due to the very last line break in the file.
+        to_display.append(current_paragraph)
+        return to_display

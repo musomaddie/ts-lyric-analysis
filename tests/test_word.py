@@ -45,7 +45,7 @@ def test_init_paragraph_break(paragraph_break):
     assert paragraph_break.formatted_word == ""
 
 def test_repr(word, line_break, paragraph_break):
-    assert (word.__repr__() 
+    assert (word.__repr__()
             == f"{EXAMPLE_WORD} ({EXAMPLE_WORD_FORMATTED}) [0]")
     assert line_break.__repr__() == "<BREAK>"
     assert paragraph_break.__repr__() == "<PARAGRAPH>"

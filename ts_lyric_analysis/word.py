@@ -1,7 +1,7 @@
 from functools import total_ordering
 from ts_lyric_analysis.util import remove_punctuation
 
-# The docs mention that using total_ordering may take significantly more time. 
+# The docs mention that using total_ordering may take significantly more time.
 # If this becomes an issue replace with the implementation of the rich
 # comparison methods
 
@@ -36,7 +36,7 @@ class Word:
 
     def __init__(self, word, is_line_break=False, is_paragraph_break=False):
         """ Creates a new Word object using the provided word. If is_line_break
-        is true, then the word is set to an empty string. 
+        is true, then the word is set to an empty string.
 
             Parameters:
                 word (str): the word of this word object.
@@ -75,7 +75,7 @@ class Word:
         return self.formatted_word < other.formatted_word
 
     def add_duplicate(self, other_word):
-        """ Marks the given word as a duplicate of this one. 
+        """ Marks the given word as a duplicate of this one.
 
             Parameters:
                 other_word (Word): the word to be marked as a duplicate.
@@ -89,8 +89,8 @@ class Word:
         return len(self.parent.duplicates)
 
     def mark_match(self, matched_word):
-        """ Marks that this word has a match! 
-        
+        """ Marks that this word has a match!
+
             Parameters:
                 matched_word (Word): the word that matches this one.
         """
