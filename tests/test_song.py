@@ -76,11 +76,17 @@ def test_move_indices_second_finished():
     assert index_2 == 1
 
 def test_display_lyrics(testing_song):
-    assert testing_song.display_lyrics() == [
+    expected_result = [
         [["This", "is", "one", "line."],
          ["This", "is", "another,", "line."]],
         [["This", "is", "a", "new", "paragraph"]]
     ]
+    # Asserting in this form so I can use the original word and save myself
+    # a lot of typing.
+    for i, paragraph in enumerate(testing_song.display_lyrics()):
+        for j, line in enumerate(paragraph):
+            for k, word in enumerate(line):
+                assert word.original_word == expected_result[i][j][k]
 
 def test_compare_songs_by_sorted(testing_song, testing_short_song):
     testing_song.compare_to_song(testing_short_song)

@@ -52,8 +52,14 @@ def test_match():
     assert word_2.matched_word == word_1
 
 def test_display_lyrics(example_lyric):
-    assert example_lyric.display_lyrics() == [
+    expected_result = [
         [["This", "is", "one", "line."],
          ["This", "is", "another,", "line."]],
         [["This", "is", "a", "new", "paragraph"]]
     ]
+    # Asserting in this form so I can use the original word and save myself
+    # a lot of typing.
+    for i, paragraph in enumerate(example_lyric.display_lyrics()):
+        for j, line in enumerate(paragraph):
+            for k, word in enumerate(line):
+                assert word.original_word == expected_result[i][j][k]

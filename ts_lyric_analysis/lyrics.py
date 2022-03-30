@@ -11,8 +11,6 @@ class Lyrics:
     allow faster matching - helper function maybe??
         - order to get the comparison and then when reordering count how many
         in the row.
-        - order to get the comparison and then when reordering count how many in
-          the row.
 
     Parameters:
         original_lyrics (list<Word>): all the lyrics in their original
@@ -22,6 +20,9 @@ class Lyrics:
 
     Methods:
         __init__(str): creates a new lyric from the given song name
+        mark_match(word1, word2): takes in two words and marks them as
+            matching.
+        display_lyrics(): returns the original lyrics formatted for display.
     """
 
     def __init__(self, songname):
@@ -141,21 +142,16 @@ class Lyrics:
                 Lyrics._recursive_custom_sort(
                     self.original_lyrics, 0, len(self.original_lyrics)))
 
-    def mark_match(word1, word2):
-        """ Marks the two given words as a match for each other.
-
-        Parameters:
-            word1: the word from first lyrics to mark as a match
-            word2: the word from the second lyrics to mark as a match
-        """
-        print(f"Match between {word1} and {word2}")
-        word1.mark_match(word2)
-        word2.mark_match(word1)
-
     def display_lyrics(self):
-        """ Returns the lyrics from this song formatted for display.
+        """ Returns the original lyrics formatted to support display on the
+        webpage.
 
-        TODO: once db is merged in update this description and the position in the class.
+        Returns:
+            list<list<Word>: the words that make up this song. The first list
+                contains each paragraph and the items in the second list is
+                each line. It is important to return the word object not just a
+                string so that further checking can be done in the html to add
+                formatting
         """
         to_display = []
         current_paragraph = []
@@ -171,13 +167,25 @@ class Lyrics:
 
             elif word.is_paragraph_break:
                 to_display.append(current_paragraph)
-                current_line = []
                 current_paragraph = []
+                # Don't need up update current_line as this was already changed
+                # in is_line_break for the line ending just before the
+                # paragraph.
 
             else:
-                current_line.append(word.original_word)
+                current_line.append(word)
 
-        # Adding the paragraph to the display as the line has been adding to
+        # Adding the paragraph to the display as the line has been added to
         # the paragraph due to the very last line break in the file.
         to_display.append(current_paragraph)
         return to_display
+
+    def mark_match(word1, word2):
+        """ Marks the two given words as a match for each other.
+
+        Parameters:
+            word1: the word from first lyrics to mark as a match
+            word2: the word from the second lyrics to mark as a match
+        """
+        word1.mark_match(word2)
+        word2.mark_match(word1)

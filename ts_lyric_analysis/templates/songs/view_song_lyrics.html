@@ -8,7 +8,7 @@
 	{% for line in paragraph %}
 		<br>
 		{% for word in line %}
-			{{ word }}
+			{{ word.original_word }}
 		{% endfor %}
 		</br>
 	{% endfor %}

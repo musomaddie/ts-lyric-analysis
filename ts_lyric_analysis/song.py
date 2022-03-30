@@ -32,6 +32,7 @@ class Song:
             for the song are saved in an appropriately named file.
         compare_to_song(song): finds all the words in common between this
             song and the supplied one.
+        display_lyrics(): readies the lyrics to be displayed on the webpage.
     """
 
     # TODO: write a population script and save all this information in a db so
@@ -123,14 +124,23 @@ class Song:
                     this_cw_idx, other_cw_idx)
 
     def display_lyrics(self):
-        """ TODO: add documentation and position in class logically. """
+        """ Returns the original lyrics formatted to support display on the
+        webpage.
+
+        Returns:
+            list<list<Word>: the words that make up this song. The first list
+                contains each paragraph and the items in the second list is
+                each line. It is important to return the word object not just a
+                string so that further checking can be done in the html to add
+                formatting
+        """
         return self.lyrics.display_lyrics()
 
 @bp.route("/<song_name>", methods=["GET"])
 def show_lyrics(song_name):
     # TODO: generalise this once the database exists
     return render_template(f"{TEMPLATE_DIR}view_song_lyrics.html",
-                           song=Song("betty", "Folklore", "Musixmatch"))
+                           song=Song("betty", "Folklore", 2, "Musixmatch"))
 
 
 @bp.route("")
