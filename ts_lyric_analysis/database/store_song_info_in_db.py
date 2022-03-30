@@ -164,3 +164,25 @@ def list_lover_album_songs():
         ("It's Nice To Have A Friend", album, 17, "AZ Lyrics"),
         ("Daylight", album, 18, "LyricFind")
     ]
+
+def list_folklore_album_songs():
+    album = "folklore"
+    return [
+        ("the 1", album, 1, "Musixmatch"),
+        ("cardigan", album, 2, "LyricFind"),
+        ("the last great american dynasty", album, 3, "Musixmatch"),
+        ("exile", album, 4, "LyricFind"),
+        ("my tears ricochet", album, 5, "Musixmatch"),
+        ("mirrorball", album, 6, "LyricFind"),
+        ("seven", album, 7, "LyricFind"),
+        ("august", album, 8, "LyricFind"),
+        ("this is me trying", album, 9, "LyricFind"),
+        ("illicit affairs", album, 10, "Musixmatch"),
+        ("invisible string", album, 11, "LyricFind"),
+        ("mad woman", album, 12, "LyricFind"),
+        ("epiphany", album, 13, "Musixmatch"),
+        ("betty", album, 14, "LyricFind"),
+        ("peace", album, 15, "Musixmatch"),
+        ("hoax", album, 16, "LyricFind"),
+        ("the lakes", album, 17, "Musixmatch")
+    ]
