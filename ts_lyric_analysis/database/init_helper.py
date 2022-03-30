@@ -5,6 +5,7 @@ from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_albu
 from ts_lyric_analysis.database.store_song_info_in_db import list_red_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_1989_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_reputation_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_lover_album_songs
 
 DB_SCRIPT_FN = "database/scripts/"
 
@@ -29,6 +30,8 @@ def _get_songs_from_album(album_name):
         return list_1989_album_songs()
     elif album_name == "reputation":
         return list_reputation_album_songs()
+    elif album_name == "Lover":
+        return list_lover_album_songs()
     return []
 
 def _find_album_id(db, album_name):
@@ -61,6 +64,7 @@ def populate_albums(db):
     _add_specific_album_values(db, ("Red", 4, 2012, True))
     _add_specific_album_values(db, ("1989", 5, 2014, False))
     _add_specific_album_values(db, ("reputation", 6, 2017, False))
+    _add_specific_album_values(db, ("Lover", 7, 2019, False))
     db.commit()
 
 def populate_songs(db, album_name):

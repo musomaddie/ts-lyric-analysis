@@ -141,3 +141,26 @@ def list_reputation_album_songs():
         ("Call It What You Want", album, 14, "Musixmatch"),
         ("New Year's Day", album, 15, "LyricFind")
     ]
+
+def list_lover_album_songs():
+    album = "Lover"
+    return [
+        ("I Forgot That You Existed", album, 1, "LyricFind"),
+        ("Cruel Summer", album, 2, "Musixmatch"),
+        ("Lover", album, 3, "LyricFind"),
+        ("The Man", album, 4, "Musixmatch"),
+        ("The Archer", album, 5, "Musixmatch"),
+        ("I Think He Knows",  album, 6, "LyricFind"),
+        ("Miss Americana & The Heartbreak Prince", album, 7, "Musixmatch"),
+        ("Paper Rings", album, 8, "LyricFind"),
+        ("Cornelia Street", album, 9, "LyricFind"),
+        ("Death By A Thousand Cuts", album, 10, "LyricFind"),
+        ("London Boy", album, 11, "Musixmatch"),
+        ("Soon You'll Get Better", album, 12, "Musixmatch"),
+        ("False God", album, 13, "Musixmatch"),
+        ("You Need to Calm Down", album, 14, "Musixmatch"),
+        ("Afterglow", album, 15, "LyricFind"),
+        ("ME!", album, 16, "LyricFind"),
+        ("It's Nice To Have A Friend", album, 17, "AZ Lyrics"),
+        ("Daylight", album, 18, "LyricFind")
+    ]
