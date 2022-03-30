@@ -121,3 +121,23 @@ def list_1989_album_songs():
         ("You Are In Love", album, 15, "LyricFind"),
         ("New Romantics", album, 16, "Musixmatch")
     ]
+
+def list_reputation_album_songs():
+    album = "reputation"
+    return [
+        ("...Ready for It?", album, 1, "LyricFind"),
+        ("End Game", album, 2, "Musixmatch"),
+        ("I Did Something Bad", album, 3, "LyricFind"),
+        ("Don't Blame Me", album, 4, "Musixmatch"),
+        ("Delicate", album, 5, "Musixmatch"),
+        ("Look What You Made Me Do", album, 6, "Musixmatch"),
+        ("So It Goes...", album, 7, "Musixmatch"),
+        ("Gorgeous", album, 8, "Musixmatch"),
+        ("Getaway Car", album, 9, "LyricFind"),
+        ("King of My Heart", album, 10, "LyricFind"),
+        ("Dancing With Our Hands Tied", album, 11, "LyricFind"),
+        ("Dress", album, 12, "LyricFind"),
+        ("This Is Why We Can't Have Nice Things", album, 13, "LyricFind"),
+        ("Call It What You Want", album, 14, "Musixmatch"),
+        ("New Year's Day", album, 15, "LyricFind")
+    ]

@@ -37,6 +37,7 @@ def init_db():
     populate_songs(db, "Speak Now")
     populate_songs(db, "Red")
     populate_songs(db, "1989")
+    populate_songs(db, "reputation")
 
 @click.command("init-db")
 @with_appcontext

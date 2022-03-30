@@ -1,15 +1,21 @@
 import pytest
 
 from ts_lyric_analysis.album import Album
+from ts_lyric_analysis.database.store_song_info_in_db import list_1989_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_red_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_1989_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_reputation_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
 from ts_lyric_analysis.db import get_db, init_db
 from ts_lyric_analysis.song import Song
 
-ALL_ALBUM_NAMES = ["Taylor Swift", "Fearless", "Speak Now", "Red", "1989"]
+ALL_ALBUM_NAMES = ["Taylor Swift",
+                   "Fearless",
+                   "Speak Now",
+                   "Red",
+                   "1989",
+                   "reputation"]
 
 def _get_songs_from_album(album_name):
     if album_name == "Taylor Swift":
@@ -22,6 +28,8 @@ def _get_songs_from_album(album_name):
         return list_red_album_songs()
     if album_name == "1989":
         return list_1989_album_songs()
+    if album_name == "reputation":
+        return list_reputation_album_songs()
     return []
 
 def test_init_db_command(runner, monkeypatch):
