@@ -208,3 +208,15 @@ def list_evermore_album_songs():
         ("right where you left me", album, 16, "Musixmatch"),
         ("it's time to go", album, 17, "Musixmatch")
     ]
+
+def list_singles_album_songs():
+    album = "Singles"
+    return [
+        ("Only The Young", album, 0, "LyricFind"),
+        ("Beautiful Ghosts", album, 0, "Musixmatch"),
+        ("Christmas Tree Farm", album, 0, "LyricFind"),
+        ("Safe & Sound", album, 0, "LyricFind"),
+        ("Eyes Open", album, 0, "Musixmatch"),
+        ("Sweeter Than Fiction", album, 0, "LyricFind"),
+        ("Crazier", album, 0, "Musixmatch")
+    ]

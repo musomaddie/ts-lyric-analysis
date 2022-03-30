@@ -3,6 +3,7 @@ import pytest
 from ts_lyric_analysis.album import Album
 from ts_lyric_analysis.database.store_song_info_in_db import list_1989_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_singles_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_red_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_reputation_album_songs
@@ -21,7 +22,8 @@ ALL_ALBUM_NAMES = ["Taylor Swift",
                    "reputation",
                    "Lover",
                    "folklore",
-                   "evermore"]
+                   "evermore",
+                   "Singles"]
 
 def _get_songs_from_album(album_name):
     if album_name == "Taylor Swift":
@@ -42,6 +44,8 @@ def _get_songs_from_album(album_name):
         return list_folklore_album_songs()
     if album_name == "evermore":
         return list_evermore_album_songs()
+    if album_name == "Singles":
+        return list_singles_album_songs()
     return []
 
 def test_init_db_command(runner, monkeypatch):

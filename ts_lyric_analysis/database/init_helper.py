@@ -1,5 +1,6 @@
 from flask import current_app
 from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
+from ts_lyric_analysis.database.store_song_info_in_db import list_singles_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
 from ts_lyric_analysis.database.store_song_info_in_db import list_red_album_songs
@@ -38,6 +39,8 @@ def _get_songs_from_album(album_name):
         return list_folklore_album_songs()
     elif album_name == "evermore":
         return list_evermore_album_songs()
+    elif album_name == "Singles":
+        return list_singles_album_songs()
     return []
 
 def _find_album_id(db, album_name):
@@ -73,6 +76,7 @@ def populate_albums(db):
     _add_specific_album_values(db, ("Lover", 7, 2019, False))
     _add_specific_album_values(db, ("folklore", 8, 2020, False))
     _add_specific_album_values(db, ("evermore", 9, 2020, False))
+    _add_specific_album_values(db, ("Singles", 0, 0000, False))
     db.commit()
 
 def populate_songs(db, album_name):
