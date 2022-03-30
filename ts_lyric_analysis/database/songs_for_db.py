@@ -1,4 +1,4 @@
-def list_debut_album_songs():
+def debut_songs():
     # I don't have to return the song object here as this is for db storage. I
     # just need the song title, album, track number and lyric source but I must
     # ensure the lyric file is created to avoid later issues.
@@ -17,7 +17,7 @@ def list_debut_album_songs():
             ("I'm Only Me When I'm With You", album, 12, "LyricFind"),
             ("Invisible", album, 13, "LyricFind")]
 
-def list_fearless_album_songs():
+def fearless_songs():
     album = "Fearless"
     return [("Fearless", album, 1, "Musixmatch"),
             ("Fifteen", album, 2, "Musixmatch"),
@@ -46,7 +46,7 @@ def list_fearless_album_songs():
             ("Don't You", album, 25, "LyricFind", True),
             ("Bye Bye Baby", album, 26, "Musixmatch", True)]
 
-def list_speak_now_album_songs():
+def speak_now_songs():
     album = "Speak Now"
     return [("Mine", album, 1, "LyricFind"),
             ("Sparks Fly", album, 2, "LyricFind"),
@@ -66,7 +66,7 @@ def list_speak_now_album_songs():
             ("If This Was A Movie", album, 19, "LyricFind"),
             ("Superman", album, 20, "LyricFind")]
 
-def list_red_album_songs():
+def red_songs():
     album = "Red"
     return [
         ("State of Grace", album, 1, "Musixmatch"),
@@ -101,7 +101,7 @@ def list_red_album_songs():
         ("All Too Well (10 minute version)", album, 30, "LyricFind", True)
     ]
 
-def list_1989_album_songs():
+def n1989_songs():
     album = "1989"
     return [
         ("Welcome To New York", album, 1, "Musixmatch"),
@@ -122,7 +122,7 @@ def list_1989_album_songs():
         ("New Romantics", album, 16, "Musixmatch")
     ]
 
-def list_reputation_album_songs():
+def reputation_songs():
     album = "reputation"
     return [
         ("...Ready for It?", album, 1, "LyricFind"),
@@ -142,7 +142,7 @@ def list_reputation_album_songs():
         ("New Year's Day", album, 15, "LyricFind")
     ]
 
-def list_lover_album_songs():
+def lover_songs():
     album = "Lover"
     return [
         ("I Forgot That You Existed", album, 1, "LyricFind"),
@@ -165,7 +165,7 @@ def list_lover_album_songs():
         ("Daylight", album, 18, "LyricFind")
     ]
 
-def list_folklore_album_songs():
+def folklore_songs():
     album = "folklore"
     return [
         ("the 1", album, 1, "Musixmatch"),
@@ -187,7 +187,7 @@ def list_folklore_album_songs():
         ("the lakes", album, 17, "Musixmatch")
     ]
 
-def list_evermore_album_songs():
+def evermore_songs():
     album = "evermore"
     return [
         ("willow", album, 1, "Musixmatch"),
@@ -209,7 +209,7 @@ def list_evermore_album_songs():
         ("it's time to go", album, 17, "Musixmatch")
     ]
 
-def list_singles_album_songs():
+def singles_songs():
     album = "Singles"
     return [
         ("Only The Young", album, 0, "LyricFind"),

@@ -1,16 +1,16 @@
 import pytest
 
 from ts_lyric_analysis.album import Album
-from ts_lyric_analysis.database.store_song_info_in_db import list_1989_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_debut_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_singles_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_fearless_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_red_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_reputation_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_lover_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_folklore_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_evermore_album_songs
-from ts_lyric_analysis.database.store_song_info_in_db import list_speak_now_album_songs
+from ts_lyric_analysis.database.songs_for_db import debut_songs
+from ts_lyric_analysis.database.songs_for_db import evermore_songs
+from ts_lyric_analysis.database.songs_for_db import fearless_songs
+from ts_lyric_analysis.database.songs_for_db import folklore_songs
+from ts_lyric_analysis.database.songs_for_db import lover_songs
+from ts_lyric_analysis.database.songs_for_db import n1989_songs
+from ts_lyric_analysis.database.songs_for_db import red_songs
+from ts_lyric_analysis.database.songs_for_db import reputation_songs
+from ts_lyric_analysis.database.songs_for_db import singles_songs
+from ts_lyric_analysis.database.songs_for_db import speak_now_songs
 from ts_lyric_analysis.db import get_db, init_db
 from ts_lyric_analysis.song import Song
 
@@ -27,25 +27,25 @@ ALL_ALBUM_NAMES = ["Taylor Swift",
 
 def _get_songs_from_album(album_name):
     if album_name == "Taylor Swift":
-        return list_debut_album_songs()
+        return debut_songs()
     if album_name == "Fearless":
-        return list_fearless_album_songs()
+        return fearless_songs()
     if album_name == "Speak Now":
-        return list_speak_now_album_songs()
+        return speak_now_songs()
     if album_name == "Red":
-        return list_red_album_songs()
+        return red_songs()
     if album_name == "1989":
-        return list_1989_album_songs()
+        return n1989_songs()
     if album_name == "reputation":
-        return list_reputation_album_songs()
+        return reputation_songs()
     if album_name == "Lover":
-        return list_lover_album_songs()
+        return lover_songs()
     if album_name == "folklore":
-        return list_folklore_album_songs()
+        return folklore_songs()
     if album_name == "evermore":
-        return list_evermore_album_songs()
+        return evermore_songs()
     if album_name == "Singles":
-        return list_singles_album_songs()
+        return singles_songs()
     return []
 
 def test_init_db_command(runner, monkeypatch):
