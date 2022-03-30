@@ -4,15 +4,24 @@ from ts_lyric_analysis.word import Word
 class Lyrics:
 
     """
+<<<<<<< HEAD
     So this is going to contain all the lyrics in order as they are in the
     song.
+=======
+    So this is going to contain all the lyrics in order as they are in the song.
+>>>>>>> displaying_lyrics
+    I need some way to maintain line endings as this is an important thing - so
+    this can probably be its own word as a special thing.
 
     I would like the analysis to run fast so I will need to sort the lyrics to
     allow faster matching - helper function maybe??
+<<<<<<< HEAD
         - order to get the comparison and then when reordering count how many
         in the row.
+=======
         - order to get the comparison and then when reordering count how many in
           the row.
+>>>>>>> displaying_lyrics
 
     Parameters:
         original_lyrics (list<Word>): all the lyrics in their original
@@ -100,15 +109,25 @@ class Lyrics:
         the filename following the same convention: static/lyrics/NAME.txt
         where NAME is the song name in lower case without punctuation.
 
+<<<<<<< HEAD
         Parameters:
             songname (str): the name of the song for the lyric file.
+=======
+            Parameters:
+                songname (str): the name of the song for the lyric file.
+>>>>>>> displaying_lyrics
         """
         songname_formatted = make_title_into_filename(songname.lower())
 
         lines = []
+<<<<<<< HEAD
         with open(f"ts_lyric_analysis/static/lyrics/{songname_formatted}.txt",
                   "r") as f:
             lines = [line.rstrip() for line in f]
+=======
+        with open(f"ts_lyric_analysis/static/lyrics/{songname_formatted}.txt", "r") as f:
+            lines = [line.strip() for line in f]
+>>>>>>> displaying_lyrics
         self._save_lyrics(lines)
 
     def _save_lyrics(self, lyrics):

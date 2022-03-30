@@ -1,10 +1,9 @@
 # import functools
 
-from flask import Blueprint
+from flask import Blueprint, render_template
 # from flask import flash
 # from flask import g
 # from flask import redirect
-# from flask import render_templates
 # from flask import request
 # from flask import session
 # from flask import url
@@ -12,6 +11,7 @@ from ts_lyric_analysis.lyrics import Lyrics
 from ts_lyric_analysis.db import get_db
 
 bp = Blueprint("song", __name__, url_prefix="/song")
+TEMPLATE_DIR = "songs/"
 
 class Song:
     """ Contains all the information needed for the current song. Is also a
@@ -122,9 +122,15 @@ class Song:
                     this_lyrics, other_lyrics,
                     this_cw_idx, other_cw_idx)
 
+    def display_lyrics(self):
+        """ TODO: add documentation and position in class logically. """
+        return self.lyrics.display_lyrics()
+
 @bp.route("/<song_name>", methods=["GET"])
 def show_lyrics(song_name):
-    return f"Showing the lyrics {song_name}"
+    # TODO: generalise this once the database exists
+    return render_template(f"{TEMPLATE_DIR}view_song_lyrics.html",
+                           song=Song("betty", "Folklore", "Musixmatch"))
 
 
 @bp.route("")
@@ -136,10 +142,9 @@ def something():
 
 
 if __name__ == "__main__":
-    # Song("testing short", "testing", "testing")
-    card = Song("cardigan", "Folklore", 2, "Musixmatch")
-    bett = Song("betty", "Folklore", 14, "Musixmatch")
-    card.compare_to_song(bett)
+    # card = Song("cardigan", "Folklore", "Musixmatch")
+    bett = Song("betty", "Folklore", "Musixmatch")
+    # card.compare_to_song(bett)
 
     # Next step is to compare both of these and find all the matches.
     # Once I have all the matches I can work on formatting the webpage for the

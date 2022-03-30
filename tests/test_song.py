@@ -46,7 +46,7 @@ def test_current_word_match_success(testing_song, testing_short_song):
     # Confirming it hasn't changed any other matches
     assert lyrics_1[1].matched_word is None
     assert lyrics_2[1].matched_word is None
-    
+
 def test_current_word_match_fail(testing_song, testing_short_song):
     lyrics_1 = testing_song.lyrics.sorted_lyrics
     lyrics_2 = testing_short_song.lyrics.sorted_lyrics
@@ -74,6 +74,13 @@ def test_move_indices_second_finished():
     index_1, index_2 = Song._move_indices(["A", "B"], ["B", "C"], 0, 1)
     assert index_1 == 1
     assert index_2 == 1
+
+def test_display_lyrics(testing_song):
+    assert testing_song.display_lyrics() == [
+        [["This", "is", "one", "line."],
+         ["This", "is", "another,", "line."]],
+        [["This", "is", "a", "new", "paragraph"]]
+    ]
 
 def test_compare_songs_by_sorted(testing_song, testing_short_song):
     testing_song.compare_to_song(testing_short_song)
@@ -136,6 +143,6 @@ def test_compare_songs_original_positions(testing_song, testing_short_song):
     assert sr[1].matched_word == tr[1]  # is
     assert sr[2].matched_word == tr[14]  # a
     assert sr[3].matched_word is None  # much
-    assert sr[4].matched_word is None  # shorter 
+    assert sr[4].matched_word is None  # shorter
     assert sr[5].matched_word is None  # song
     assert sr[6].matched_word is None  # BREAK

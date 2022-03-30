@@ -18,7 +18,7 @@ def example_lyric():
 
 @pytest.fixture
 def testing_lyrics_list_repr():
-    return ["This (this) [2]", "is (is) [2]", 
+    return ["This (this) [2]", "is (is) [2]",
             "one (one) [0]", "line. (line) [1]",
             "<BREAK>",
             "This (this) [2]", "is (is) [2]",
@@ -44,10 +44,16 @@ def test_setup(example_lyric, testing_lyrics_list_repr):
     for i, l in enumerate(example_lyric.sorted_lyrics):
         assert l.__repr__() == sorted_testing_removed[i]
 
-
 def test_match():
     word_1 = Word("This")
     word_2 = Word("this")
     Lyrics.mark_match(word_1, word_2)
     assert word_1.matched_word == word_2
     assert word_2.matched_word == word_1
+
+def test_display_lyrics(example_lyric):
+    assert example_lyric.display_lyrics() == [
+        [["This", "is", "one", "line."],
+         ["This", "is", "another,", "line."]],
+        [["This", "is", "a", "new", "paragraph"]]
+    ]

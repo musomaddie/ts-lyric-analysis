@@ -6,13 +6,13 @@ class Lyrics:
     """
     So this is going to contain all the lyrics in order as they are in the
     song.
+    I need some way to maintain line endings as this is an important thing - so
+    this can probably be its own word as a special thing.
 
     I would like the analysis to run fast so I will need to sort the lyrics to
     allow faster matching - helper function maybe??
         - order to get the comparison and then when reordering count how many
         in the row.
-        - order to get the comparison and then when reordering count how many in
-          the row.
 
     Parameters:
         original_lyrics (list<Word>): all the lyrics in their original
@@ -151,33 +151,3 @@ class Lyrics:
         print(f"Match between {word1} and {word2}")
         word1.mark_match(word2)
         word2.mark_match(word1)
-
-    def display_lyrics(self):
-        """ Returns the lyrics from this song formatted for display.
-
-        TODO: once db is merged in update this description and the position in the class.
-        """
-        to_display = []
-        current_paragraph = []
-        current_line = []
-        for word in self.original_lyrics:
-            if word.is_line_break:
-                # Special case for if the break is right after a paragraph
-                if len(current_line) == 0:
-                    continue
-
-                current_paragraph.append(current_line)
-                current_line = []
-
-            elif word.is_paragraph_break:
-                to_display.append(current_paragraph)
-                current_line = []
-                current_paragraph = []
-
-            else:
-                current_line.append(word.original_word)
-
-        # Adding the paragraph to the display as the line has been adding to
-        # the paragraph due to the very last line break in the file.
-        to_display.append(current_paragraph)
-        return to_display
