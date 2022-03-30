@@ -186,3 +186,25 @@ def list_folklore_album_songs():
         ("hoax", album, 16, "LyricFind"),
         ("the lakes", album, 17, "Musixmatch")
     ]
+
+def list_evermore_album_songs():
+    album = "evermore"
+    return [
+        ("willow", album, 1, "Musixmatch"),
+        ("champagne problems", album, 2, "Musixmatch"),
+        ("gold rush", album, 3, "Musixmatch"),
+        ("'tis the damn season", album, 4, "Musixmatch"),
+        ("tolerate it", album, 5, "LyricFind"),
+        ("no body, no crime", album, 6, "LyricFind"),
+        ("happiness", album, 7, "AZ Lyrics"),
+        ("dorothea", album, 8, "LyricFind"),
+        ("coney island", album, 9, "LyricFind"),
+        ("ivy", album, 10, "Musixmatch"),
+        ("cowboy like me", album, 11, "LyricFind"),
+        ("long story short", album, 12, "LyricFind"),
+        ("marjorie", album, 13, "LyricFind"),
+        ("closure", album, 14, "Genius Lyrics"),
+        ("evermore", album, 15, "LyricFind"),
+        ("right where you left me", album, 16, "Musixmatch"),
+        ("it's time to go", album, 17, "Musixmatch")
+    ]
