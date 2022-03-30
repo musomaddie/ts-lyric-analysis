@@ -3,5 +3,16 @@
 {% block content %}
 <h1> THERE ARE LYRICS TO BE DISPLAYED HERE for {{ song.name }} </h1>
 
-<p> The lyrics are: {{ song.display_lyrics }} </p>
+{% for paragraph in song.display_lyrics() %}
+	<p>
+	{% for line in paragraph %}
+		<br>
+		{% for word in line %}
+			{{ word }}
+		{% endfor %}
+		</br>
+	{% endfor %}
+	</p>
+{% endfor %}
+
 {% endblock %}
